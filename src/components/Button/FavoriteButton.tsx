@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import { getPixelToPixel, getWidthPixel } from '../../utils/responsive';
+import { getWidthPixel } from '../../utils/responsive';
 
 import Favorite_Selected_Icon from '../../assets/icons/icon/favorite_selected.svg';
 import Favorite_White_Icon from '../../assets/icons/icon/favorite_white.svg';
@@ -24,9 +24,8 @@ const FavoriteButton = ({ ...rest }: ButtonProps) => {
 };
 
 const ImageStyled = styled.View`
-  width: ${getWidthPixel(30)};
-  height: ${getWidthPixel(30)};
-  margin: ${getPixelToPixel(5)};
+  width: ${getWidthPixel(25)};
+  height: ${getWidthPixel(25)};
 `;
 
 export default FavoriteButton;

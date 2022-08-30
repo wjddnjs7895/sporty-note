@@ -1,17 +1,27 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
-import { NavigationProps } from '../../constants/navigator';
+import { NavigationParam } from '../../constants/navigator';
+import { getNoteListSelector } from '../../store/selectors/noteSelector';
 import { getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 
 import NoteCard from '../Card/NoteCard';
 
-function NoteCardContainer({ navigation }: NavigationProps<'NoteListScreen'>) {
+function NoteCardContainer({ navigation }: NativeStackScreenProps<NavigationParam, 'NoteListScreen'>) {
+  const noteList = useRecoilValue(getNoteListSelector);
   return (
     <ListStyled>
-      <NoteCard workoutName="벤치프레스" onPress={() => navigation.push('NoteScreen', { machineIdx: 1 })} />
-      <NoteCard workoutName="벤치프레스" />
-      <NoteCard workoutName="벤치프레스" />
+      {noteList.map(note => {
+        return (
+          <NoteCard
+            key={note.machineIdx}
+            workoutName={note.krMachineName}
+            onPress={() => navigation.push('NoteScreen', { machineIdx: 1 })}
+          />
+        );
+      })}
       <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
     </ListStyled>
   );

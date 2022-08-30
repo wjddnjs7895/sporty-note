@@ -10,4 +10,12 @@ export const WORKOUT__INFO: WorkoutNameType = {
     url: require('../assets/workouts/barbell_flat_bench_press.png'),
     index: 1,
   },
+  딥스: {
+    url: require('../assets/workouts/dips.png'),
+    index: 2,
+  },
+  랫풀다운: {
+    url: require('../assets/workouts/dips.png'),
+    index: 2,
+  },
 };

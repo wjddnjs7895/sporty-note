@@ -18,5 +18,15 @@ export function getMemoTitle({ ...memoList }: MemoListDataProps) {
 
 export function isUserLogin(): boolean {
   const userInfo = useRecoilValue(userState);
-  return userInfo.userIdx !== -1;
+  return userInfo.success !== false;
+}
+
+export function getParseCode(data: string) {
+  const exp = 'code=';
+  var condition = data.indexOf(exp);
+  if (condition !== -1) {
+    var request_code = data.substring(condition + exp.length);
+    return request_code;
+  }
+  return '';
 }

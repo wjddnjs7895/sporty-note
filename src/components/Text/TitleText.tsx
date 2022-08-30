@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 
 import { TextProps, TextStyle } from '../../constants/types';
 import { palette } from '../../constants/palette';
-import { TitleTextInfo } from '../../constants/text';
+import { TitleTextInfo } from '../../constants/font';
 import { getPixelToPixel } from '../../utils/responsive';
 
 function TitleText({ children, ...rest }: TextProps) {

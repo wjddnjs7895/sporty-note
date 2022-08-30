@@ -11,6 +11,7 @@ import MainScreen from '../screens/MainScreen';
 import NoteNavigator from './NoteNavigator';
 
 import { palette } from '../constants/palette';
+import { NAVIGATION__TEXT } from '../constants/text';
 import Home_Icon from '../assets/icons/gnb/home.svg';
 import Home_Selected_Icon from '../assets/icons/gnb/home_selected.svg';
 import Note_Icon from '../assets/icons/gnb/note.svg';
@@ -21,13 +22,16 @@ import Search_Icon from '../assets/icons/gnb/search.svg';
 import Search_Selected_Icon from '../assets/icons/gnb/search_selected.svg';
 import User_Icon from '../assets/icons/gnb/user.svg';
 import User_Selected_Icon from '../assets/icons/gnb/user_selected.svg';
+import { useRecoilValue } from 'recoil';
+import { appState } from '../store/atoms/appAtom';
 
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
+  const appInfo = useRecoilValue(appState);
   return (
     <BottomTab.Navigator
-      initialRouteName="NoteListScreen"
+      initialRouteName="MainScreen"
       screenOptions={{
         tabBarActiveTintColor: '#000000',
         tabBarStyle: {
@@ -49,7 +53,7 @@ export default function BottomTabNavigator() {
         name="MyRoutineScreen"
         component={MyRoutineScreen}
         options={{
-          title: '마이루틴',
+          title: NAVIGATION__TEXT[0][appInfo.language],
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Record_Selected_Icon /> : <Record_Icon />}</IconStyled>,
         }}
       />
@@ -57,6 +61,7 @@ export default function BottomTabNavigator() {
         name="NoteNavigator"
         component={NoteNavigator}
         options={{
+          title: NAVIGATION__TEXT[1][appInfo.language],
           headerShown: false,
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Note_Selected_Icon /> : <Note_Icon />}</IconStyled>,
         }}
@@ -65,7 +70,7 @@ export default function BottomTabNavigator() {
         name="MainScreen"
         component={MainScreen}
         options={{
-          title: '홈',
+          title: NAVIGATION__TEXT[2][appInfo.language],
           headerShown: false,
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Home_Selected_Icon /> : <Home_Icon />}</IconStyled>,
         }}
@@ -74,7 +79,7 @@ export default function BottomTabNavigator() {
         name="SearchScreen"
         component={SearchScreen}
         options={{
-          title: '검색',
+          title: NAVIGATION__TEXT[3][appInfo.language],
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Search_Selected_Icon /> : <Search_Icon />}</IconStyled>,
         }}
       />
@@ -82,7 +87,7 @@ export default function BottomTabNavigator() {
         name="UserScreen"
         component={UserScreen}
         options={{
-          title: '마이페이지',
+          title: NAVIGATION__TEXT[4][appInfo.language],
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <User_Selected_Icon /> : <User_Icon />}</IconStyled>,
         }}
       />

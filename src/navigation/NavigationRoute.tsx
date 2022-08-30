@@ -18,7 +18,7 @@ const AppTheme = {
 export default function Navigation() {
   return (
     <NavigationContainer theme={AppTheme}>
-      {isUserLogin() === true ? <BottomTabNavigator /> : <LoginNavigator />}
+      {isUserLogin() === false ? <BottomTabNavigator /> : <LoginNavigator />}
     </NavigationContainer>
   );
 }

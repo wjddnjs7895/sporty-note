@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import NoteScreen from '../screens/NoteScreen';
 import NoteListScreen from '../screens/NoteListScreen';
-import { NoteNavigatorParam } from '../constants/navigator';
+import { NavigationParam } from '../constants/navigator';
 
-const NoteStack = createNativeStackNavigator<NoteNavigatorParam>();
+const NoteStack = createNativeStackNavigator<NavigationParam>();
 
 export default function NoteNavigator() {
   return (

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/native';
-
 import { getHeightPixel, getWidthPixel, getPixelToPixel } from '../../utils/responsive';
 
 import Kakao_Logo_Icon from '../../assets/icons/login/kakao_logo.svg';
+import { ButtonProps } from '../../constants/types';
 
-const KakaoLoginButton = () => {
+const KakaoLoginButton = ({ onPress }: ButtonProps) => {
   return (
-    <ContainerStyled>
+    <ContainerStyled onPress={onPress}>
       <LogoStyled />
       <InnerContainerStyled>
         <TextStyled>카카오 로그인</TextStyled>

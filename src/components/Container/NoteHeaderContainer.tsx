@@ -1,65 +1,68 @@
 import React from 'react';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
-import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
+import { palette } from '../../constants/palette';
+import { NoteScreenHeaderProps } from '../../constants/types';
+import { getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 
+import Button from '../Button';
 import BackButton from '../Button/BackButton';
 import FavoriteButton from '../Button/FavoriteButton';
+import BodyText from '../Text/BodyText';
 import HeadText from '../Text/HeadText';
-import SelectBar from '../Button/SelectBar';
 
-function NoteHeaderContainer() {
+function NoteHeaderContainer({ goBack, isInput }: NoteScreenHeaderProps) {
   return (
-    <View>
-      <ContainerStyled>
-        <ButtonStyled>
-          <BackButton />
-        </ButtonStyled>
-        <HeadText fontNumber={2}>바벨 플랫 벤치 프레스</HeadText>
-        <FavoriteStyled>
+    <ContainerStyled>
+      <BackButtonStyled>
+        <BackButton onPress={goBack} />
+      </BackButtonStyled>
+      <HeadText fontNumber={2}>바벨 플랫 벤치 프레스</HeadText>
+      <ButtonTypeStyled>
+        {isInput ? (
+          <ButtonStyled
+            width={getWidthPixel(48)}
+            height={getHeightPixel(30)}
+            borderRadius={getPixelToPixel(21)}
+            buttonColor={'black'}
+            hasShadow={false}
+          >
+            <TextStyled fontNumber={5} fontColor="white">
+              저장
+            </TextStyled>
+          </ButtonStyled>
+        ) : (
           <FavoriteButton isSelected={false} buttonColor="white" />
-        </FavoriteStyled>
-      </ContainerStyled>
-      <BarStyled>
-        <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={true}>
-          기본
-        </SelectBar>
-        <SelectBar fontNumber={3} width={getWidthPixel(89)}>
-          추천
-        </SelectBar>
-        <SelectBar fontNumber={3} width={getWidthPixel(89)}>
-          친구
-        </SelectBar>
-        <SelectBar fontNumber={3} width={getWidthPixel(89)}>
-          마이
-        </SelectBar>
-      </BarStyled>
-    </View>
+        )}
+      </ButtonTypeStyled>
+    </ContainerStyled>
   );
 }
+
+const TextStyled = styled(BodyText)`
+  text-align: center;
+`;
 
 const ContainerStyled = styled.View`
   flex-direction: row;
   height: ${getHeightPixel(60)};
   align-items: center;
   justify-content: center;
+  width: 100%;
+  background-color: ${palette.gray_06};
 `;
 
-const BarStyled = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  margin-top: ${getHeightPixel(10)};
-`;
-
-const ButtonStyled = styled.View`
+const BackButtonStyled = styled.View`
   position: absolute;
   left: ${getWidthPixel(11)};
 `;
 
-const FavoriteStyled = styled.View`
+const ButtonTypeStyled = styled.View`
   position: absolute;
-  right: ${getWidthPixel(11)};
-  top: ${getHeightPixel(8)};
+  right: ${getWidthPixel(15)};
+`;
+
+const ButtonStyled = styled(Button)`
+  justify-content: center;
 `;
 
 export default NoteHeaderContainer;

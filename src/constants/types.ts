@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { RecoilValueReadOnly } from 'recoil';
 import { BodyKeyTypes } from './body';
 import { PaletteKeyTypes } from './palette';
 
@@ -25,14 +26,13 @@ export interface ButtonStyle {
   borderRadius?: string;
   isSelected?: boolean;
   fontNumber?: number;
-  paddingTop?: string;
-  paddingLeft?: string;
+  hasShadow?: boolean;
+  onPress?: () => void;
 }
 
 export interface ButtonProps extends ButtonStyle {
   children?: ReactNode;
   className?: string;
-  onPress?: () => void;
 }
 
 export interface BlankStyle {
@@ -55,7 +55,7 @@ export interface CardStyle {
   marginLeft?: string;
   marginRight?: string;
   hasShadow?: boolean;
-  onPress?: () => void;
+  onPress?: () => void | void;
 }
 
 export interface CardProps extends CardStyle {
@@ -103,10 +103,41 @@ export interface NoteStyle {
   height?: string;
 }
 
+export interface NoteSelectBarProps {
+  screenIdx: number;
+  setIdx: Dispatch<SetStateAction<number>>;
+}
+
+export interface NoteScreenHeaderProps {
+  goBack: () => void;
+  isInput?: boolean;
+  submit?: RecoilValueReadOnly<number>;
+}
+
+export interface NoteModalProps extends NoteScreenHeaderProps {
+  isVisible: boolean;
+}
+
+export interface MemoInputModalProps {
+  body: BodyKeyTypes;
+  visible?: boolean;
+  setBody: Dispatch<SetStateAction<BodyKeyTypes>>;
+}
+
+export interface BodyFilterProps extends MemoInputModalProps {
+  setVisible: Dispatch<SetStateAction<boolean>>;
+}
+
 export interface NoteProps extends NoteStyle {
   children?: ReactNode;
-  userName?: string;
+  userIdx: string;
+  machineIdx: number;
   workoutName: string;
+  targetArea?: string;
+  url?: string;
+  krMachineName: string;
+  engMachineName: string;
+  userFavoriteIdx?: number;
 }
 
 export interface workoutProps {
@@ -144,15 +175,21 @@ export interface MemoListDataProps {
 }
 
 export interface MemoDataProps {
+  [key: string]: string | number | workoutNameType;
   userIdx: string;
   machineIdx: number;
-  nodeIdx: number;
+  noteIdx: number;
   type: { engName: string; krName: string };
   color: string;
   text: string;
   x_location: number;
   y_location: number;
   pictureUrl: string;
+}
+
+export interface workoutNameType {
+  engName: string;
+  krName: string;
 }
 
 export interface MemoTypeProps {
@@ -167,14 +204,31 @@ export interface MemoTitleProps {
 }
 
 export interface IdxType {
-  userIdx?: string;
-  machineIdx?: number;
+  userIdx: string;
+  machineIdx: number;
 }
 
 export interface IdxTypeProps extends IdxType {
-  [key: string]: string | number | undefined;
+  [key: string]: string | number;
 }
 
 export interface userProps {
-  userIdx: number;
+  userIdx?: string;
+  success: boolean;
+  accessToken: string;
+}
+
+export interface loginProps {
+  [key: string]: string;
+  code: string;
+}
+
+export interface appProps {
+  language: number;
+}
+
+export interface colorTagProps {
+  tagColor: PaletteKeyTypes;
+  width?: string;
+  height?: string;
 }

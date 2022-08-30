@@ -14,6 +14,7 @@ export const palette: PaletteType = {
   black: '#000000',
   black_01: '#000000',
   black_02: '#222222',
+  gray_03: '#949498',
   gray_04: '#767676',
   gray_05: '#434343',
   gray_06: '#C1C1CA',
@@ -38,4 +39,5 @@ export type PaletteKeyTypes = keyof typeof palette;
 export const COLOR__STRING: PaletteType = {
   Orange: palette.orange,
   Blue: palette.blue,
+  Red: palette.red,
 };

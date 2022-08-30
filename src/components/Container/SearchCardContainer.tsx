@@ -15,14 +15,14 @@ function SearchCardContainer() {
         marginBottom={getHeightPixel(9)}
       />
       <Card
-        workoutName="벤치프레스"
+        workoutName="딥스"
         width={getWidthPixel(170)}
         height={getWidthPixel(170)}
         marginTop={getHeightPixel(9)}
         marginBottom={getHeightPixel(9)}
       />
       <Card
-        workoutName="벤치프레스"
+        workoutName="딥스"
         width={getWidthPixel(170)}
         height={getWidthPixel(170)}
         marginTop={getHeightPixel(9)}

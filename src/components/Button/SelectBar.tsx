@@ -16,7 +16,7 @@ const SelectBar = ({ children, ...rest }: ButtonProps) => {
   );
 };
 
-const NoteListButtonStyled = styled.View<ButtonStyle>`
+const NoteListButtonStyled = styled.TouchableOpacity<ButtonStyle>`
   align-items: center;
   padding-bottom: ${getPixelToPixel(7)};
   ${({ isSelected = false, width = getWidthPixel(179) }) => css`

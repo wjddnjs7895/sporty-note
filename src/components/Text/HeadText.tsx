@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 
 import { TextProps, TextStyle } from '../../constants/types';
 import { palette } from '../../constants/palette';
-import { HeadTextInfo } from '../../constants/text';
+import { HeadTextInfo } from '../../constants/font';
 import { getPixelToPixel } from '../../utils/responsive';
 
 function HeadText({ children, ...rest }: TextProps) {

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 
 import { TextProps, TextStyle } from '../../constants/types';
 import { palette } from '../../constants/palette';
-import { BodyTextInfo } from '../../constants/text';
+import { BodyTextInfo } from '../../constants/font';
 import { getPixelToPixel } from '../../utils/responsive';
 
 function BodyText({ children, ...rest }: TextProps) {

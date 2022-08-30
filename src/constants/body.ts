@@ -21,7 +21,7 @@ export const BODY__LIST: BodyType = {
   },
   GRIP: {
     engName: 'Grip',
-    krName: 'Elbow',
+    krName: '그립',
   },
   ELBOW: {
     engName: 'Elbow',

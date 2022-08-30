@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 
 import { TextProps, TextStyle } from '../../constants/types';
 import { palette } from '../../constants/palette';
-import { SubHeadTextInfo } from '../../constants/text';
+import { SubHeadTextInfo } from '../../constants/font';
 import { getPixelToPixel } from '../../utils/responsive';
 
 function SubHeadText({ children, ...rest }: TextProps) {

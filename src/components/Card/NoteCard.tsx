@@ -45,8 +45,8 @@ const NoteCardStyled = styled.TouchableOpacity`
 
 const FavoriteStyled = styled.View`
   position: absolute;
-  right: ${getWidthPixel(0)};
-  top: ${getWidthPixel(9)};
+  right: ${getWidthPixel(10)};
+  top: ${getWidthPixel(16)};
 `;
 
 const CardStyled = styled.View<CardStyle>`

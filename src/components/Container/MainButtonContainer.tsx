@@ -15,9 +15,10 @@ import Note_List_Icon from '../../assets/icons/illust/note_list.svg';
 import Favorite_Icon from '../../assets/icons/illust/favorite.svg';
 import Widget_Icon from '../../assets/icons/illust/widget.svg';
 import My_Routine_Icon from '../../assets/icons/illust/my_routine.svg';
-import { NavigationProps } from '../../constants/navigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationParam } from '../../constants/navigator';
 
-function MainButtonContainer({ navigation }: NavigationProps<'MainScreen'>) {
+function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationParam, 'MainScreen'>) {
   return (
     <ContainerStyled>
       <SearchBarButton>운동 방법을 검색해보세요.</SearchBarButton>
@@ -27,12 +28,14 @@ function MainButtonContainer({ navigation }: NavigationProps<'MainScreen'>) {
           width={getWidthPixel(211)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => navigation.navigate('NoteListScreen')}
+          onPress={() => navigation.navigate('MyRoutineScreen')}
         >
-          <SubHeadText fontNumber={2}>노트 리스트</SubHeadText>
-          <BodyText fontNumber={5} fontColor={'gray_04'}>
-            나의 운동 노트를 확인하세요
-          </BodyText>
+          <TextContainerStyled>
+            <SubHeadText fontNumber={2}>노트 리스트</SubHeadText>
+            <BodyText fontNumber={5} fontColor={'gray_04'}>
+              나의 운동 노트를 확인하세요
+            </BodyText>
+          </TextContainerStyled>
           <ImageStyled>
             <Note_List_Icon />
           </ImageStyled>
@@ -43,7 +46,9 @@ function MainButtonContainer({ navigation }: NavigationProps<'MainScreen'>) {
           buttonColor="white"
           onPress={() => navigation.navigate('NoteListScreen')}
         >
-          <SubHeadText fontNumber={2}>즐겨찾기</SubHeadText>
+          <TextContainerStyled>
+            <SubHeadText fontNumber={2}>즐겨찾기</SubHeadText>
+          </TextContainerStyled>
           <ImageStyled>
             <Favorite_Icon />
           </ImageStyled>
@@ -56,16 +61,20 @@ function MainButtonContainer({ navigation }: NavigationProps<'MainScreen'>) {
           buttonColor="white"
           onPress={() => navigation.navigate('NoteListScreen')}
         >
-          <SubHeadText fontNumber={2}>위젯</SubHeadText>
+          <TextContainerStyled>
+            <SubHeadText fontNumber={2}>위젯</SubHeadText>
+          </TextContainerStyled>
           <ImageStyled>
             <Widget_Icon />
           </ImageStyled>
         </Button>
         <Button width={getWidthPixel(211)} height={MAIN_BUTTON_HEIGHT} buttonColor="white">
-          <SubHeadText fontNumber={2}>마이 루틴</SubHeadText>
-          <BodyText fontNumber={5} fontColor={'gray_04'}>
-            내 운동 루틴을 확인하고 싶다면?
-          </BodyText>
+          <TextContainerStyled>
+            <SubHeadText fontNumber={2}>마이 루틴</SubHeadText>
+            <BodyText fontNumber={5} fontColor={'gray_04'}>
+              내 운동 루틴을 확인하고 싶다면?
+            </BodyText>
+          </TextContainerStyled>
           <ImageStyled>
             <My_Routine_Icon />
           </ImageStyled>
@@ -91,6 +100,11 @@ const InnerContainerStyled = styled.View`
   justify-content: space-between;
   width: ${getWidthPixel(358)};
   margin-bottom: 10px;
+`;
+
+const TextContainerStyled = styled.View`
+  padding-top: ${getWidthPixel(10)};
+  padding-left: ${getWidthPixel(14)};
 `;
 
 const ImageStyled = styled.View`

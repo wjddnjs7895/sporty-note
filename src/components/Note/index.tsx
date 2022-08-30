@@ -11,9 +11,7 @@ import { useRecoilValueLoadable } from 'recoil';
 import Loading from '../Loading';
 
 const Note = ({ ...rest }: NoteProps) => {
-  const memoList = useRecoilValueLoadable(
-    getNoteSelector({ userIdx: '12312312', machineIdx: WORKOUT__INFO[rest.workoutName].index })
-  );
+  const memoList = useRecoilValueLoadable(getNoteSelector({ userIdx: rest.userIdx, machineIdx: rest.machineIdx }));
   switch (memoList.state) {
     case 'hasValue':
       return (

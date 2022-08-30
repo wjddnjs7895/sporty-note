@@ -5,6 +5,7 @@ import { userProps } from '../../constants/types';
 export const userState = atom<userProps>({
   key: 'userState/' + Math.random(),
   default: {
-    userIdx: -1,
+    accessToken: '',
+    success: false,
   },
 });

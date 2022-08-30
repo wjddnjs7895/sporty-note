@@ -13,7 +13,7 @@ function MemoContent(memoContent: MemoDataProps[]) {
   return (
     <ContainerStyled>
       {Object.values(memoContent).map((memo, index) => (
-        <View key={memo.nodeIdx}>
+        <View key={memo.noteIdx}>
           <InnerContainerStyled>
             <ImageCoverStyled>
               <ImageStyled />

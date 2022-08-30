@@ -3,13 +3,14 @@ import styled from 'styled-components/native';
 import NoteCardContainer from '../components/Container/NoteCardContainer';
 
 import NoteListHeaderContainer from '../components/Container/NoteListHeaderContainer';
-import { NoteListScreenProps } from '../constants/navigator';
+import { NavigationParam } from '../constants/navigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const NoteListScreen = ({ navigation }: NoteListScreenProps) => {
+const NoteListScreen = ({ navigation, route }: NativeStackScreenProps<NavigationParam, 'NoteListScreen'>) => {
   return (
     <ScreenStyled>
       <NoteListHeaderContainer />
-      <NoteCardContainer navigation={navigation} />
+      <NoteCardContainer navigation={navigation} route={route} />
     </ScreenStyled>
   );
 };

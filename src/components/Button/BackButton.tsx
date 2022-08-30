@@ -4,10 +4,11 @@ import styled from 'styled-components/native';
 import { getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 
 import Back_Icon from '../../assets/icons/button/back.svg';
+import { ButtonProps } from '../../constants/types';
 
-const BackButton = () => {
+const BackButton = ({ ...rest }: ButtonProps) => {
   return (
-    <ButtonStyled>
+    <ButtonStyled {...rest}>
       <ImageStyled />
     </ButtonStyled>
   );

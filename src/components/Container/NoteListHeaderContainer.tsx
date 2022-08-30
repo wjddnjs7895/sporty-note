@@ -15,8 +15,6 @@ function NoteListHeaderContainer() {
         height={getHeightPixel(30)}
         width={getWidthPixel(48)}
         borderRadius={getPixelToPixel(21)}
-        paddingLeft={getPixelToPixel(0)}
-        paddingTop={getPixelToPixel(0)}
       >
         <BodyText fontNumber={5} fontColor={'white'}>
           추가
