@@ -14,13 +14,7 @@ function NoteCardContainer({ navigation }: NativeStackScreenProps<NavigationPara
   return (
     <ListStyled>
       {noteList.map(note => {
-        return (
-          <NoteCard
-            key={note.machineIdx}
-            workoutName={note.krMachineName}
-            onPress={() => navigation.push('NoteScreen', { machineIdx: 1 })}
-          />
-        );
+        return <NoteCard key={note.machineIdx} {...note} onPress={() => navigation.push('NoteScreen', { ...note })} />;
       })}
       <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
     </ListStyled>

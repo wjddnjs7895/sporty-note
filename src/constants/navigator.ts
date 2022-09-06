@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NoteProps } from './types';
 
 export type NavigationParam = {
   MyRoutineScreen: undefined;
@@ -7,7 +8,7 @@ export type NavigationParam = {
   SearchScreen: undefined;
   UserScreen: undefined;
   NoteListScreen: undefined;
-  NoteScreen: { machineIdx: number };
+  NoteScreen: NoteProps;
   LoginScreen: undefined;
   KakaoLoginWebScreen: undefined;
   Screen: undefined;

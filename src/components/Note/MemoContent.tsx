@@ -8,17 +8,19 @@ import { palette } from '../../constants/palette';
 import Text_Icon from '../../assets/icons/icon/text.svg';
 import { MemoDataProps } from '../../constants/types';
 import { View } from 'react-native';
+import EditModalButton from '../Button/EditModalButton';
 
 function MemoContent(memoContent: MemoDataProps[]) {
   return (
     <ContainerStyled>
       {Object.values(memoContent).map((memo, index) => (
-        <View key={memo.noteIdx}>
+        <View key={memo.nodeIdx}>
           <InnerContainerStyled>
             <ImageCoverStyled>
               <ImageStyled />
             </ImageCoverStyled>
             <MemoTextStyled>{memo.text}</MemoTextStyled>
+            <EditModalButton />
           </InnerContainerStyled>
           {index + 1 !== Object.values(memoContent).length ? <DividerStyled /> : null}
         </View>
@@ -41,10 +43,11 @@ const DividerStyled = styled.View`
 
 const InnerContainerStyled = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 const MemoTextStyled = styled(BodyText)`
-  width: ${getWidthPixel(240)};
+  width: ${getWidthPixel(230)};
   padding-left: ${getWidthPixel(20)};
 `;
 

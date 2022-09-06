@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Calendar from '../components/Calendar';
 
 const CalendarScreen = () => {
   return (
     <View>
-      <Text>CalendarScreen</Text>
+      <Calendar />
     </View>
   );
 };

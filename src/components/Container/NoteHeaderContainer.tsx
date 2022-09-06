@@ -10,7 +10,7 @@ import FavoriteButton from '../Button/FavoriteButton';
 import BodyText from '../Text/BodyText';
 import HeadText from '../Text/HeadText';
 
-function NoteHeaderContainer({ goBack, isInput }: NoteScreenHeaderProps) {
+function NoteHeaderContainer({ goBack, isInput, submit }: NoteScreenHeaderProps) {
   return (
     <ContainerStyled>
       <BackButtonStyled>
@@ -25,6 +25,7 @@ function NoteHeaderContainer({ goBack, isInput }: NoteScreenHeaderProps) {
             borderRadius={getPixelToPixel(21)}
             buttonColor={'black'}
             hasShadow={false}
+            onPress={submit}
           >
             <TextStyled fontNumber={5} fontColor="white">
               저장

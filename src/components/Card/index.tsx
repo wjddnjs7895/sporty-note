@@ -13,8 +13,8 @@ import { WORKOUT__INFO } from '../../constants/workout';
 function Card({ children, ...rest }: CardProps) {
   return (
     <CardStyled {...rest}>
-      <ImageStyled source={WORKOUT__INFO[rest.workoutName].url} />
-      <SubHeadText fontNumber={4}>{rest.workoutName}</SubHeadText>
+      <ImageStyled source={WORKOUT__INFO[rest.machineIdx].url} />
+      <SubHeadText fontNumber={4}>{rest.krMachineName}</SubHeadText>
     </CardStyled>
   );
 }

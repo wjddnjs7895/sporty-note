@@ -11,19 +11,16 @@ function MainCardListContainer({ ...rest }: ContainerProps) {
     <ContainerStyled height={rest.height}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <Card
-          workoutName="벤치프레스"
+          krMachineName="벤치프레스"
+          engMachineName="benchpress"
           isSelected={false}
+          machineIdx={1}
+          url="url"
+          userFavoriteIdx={0}
+          targetArea="CHEST"
           marginLeft={getWidthPixel(5)}
           marginRight={getWidthPixel(5)}
         />
-        <Card workoutName="딥스" isSelected={true} marginLeft={getWidthPixel(5)} marginRight={getWidthPixel(5)} />
-        <Card
-          workoutName="벤치프레스"
-          isSelected={false}
-          marginLeft={getWidthPixel(5)}
-          marginRight={getWidthPixel(5)}
-        />
-        <Card workoutName="딥스" isSelected={false} marginLeft={getWidthPixel(5)} marginRight={getWidthPixel(5)} />
       </ScrollView>
     </ContainerStyled>
   );

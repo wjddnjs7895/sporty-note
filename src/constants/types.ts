@@ -60,8 +60,12 @@ export interface CardStyle {
 
 export interface CardProps extends CardStyle {
   children?: ReactNode;
-  workoutName: string;
-  className?: string;
+  engMachineName: string;
+  krMachineName: string;
+  targetArea: string;
+  url: string;
+  userFavoriteIdx: number;
+  machineIdx: number;
 }
 
 export interface ImageStyle {
@@ -111,11 +115,24 @@ export interface NoteSelectBarProps {
 export interface NoteScreenHeaderProps {
   goBack: () => void;
   isInput?: boolean;
-  submit?: RecoilValueReadOnly<number>;
+  submit?: () => void;
 }
 
-export interface NoteModalProps extends NoteScreenHeaderProps {
+export interface ModalStyle {
+  location: number[];
+}
+
+export interface ModalProps extends ModalStyle {
   isVisible: boolean;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  goBack?: () => void;
+}
+
+export interface NoteModalProps extends NoteDataProps {
+  isVisible: boolean;
+  goBack: () => void;
+  isInput?: boolean;
+  submit?: RecoilValueReadOnly<number>;
 }
 
 export interface MemoInputModalProps {
@@ -131,13 +148,13 @@ export interface BodyFilterProps extends MemoInputModalProps {
 export interface NoteProps extends NoteStyle {
   children?: ReactNode;
   userIdx: string;
+  noteIdx?: number;
   machineIdx: number;
-  workoutName: string;
-  targetArea?: string;
-  url?: string;
+  targetArea: string;
+  url: string;
   krMachineName: string;
   engMachineName: string;
-  userFavoriteIdx?: number;
+  userFavoriteIdx: number;
 }
 
 export interface workoutProps {
@@ -150,7 +167,7 @@ export interface workoutProps {
 }
 
 export interface NoteDataProps {
-  noteIdx: string;
+  noteIdx: number;
   machineDto: workoutProps;
   nodeDtos: {
     [key: BodyKeyTypes]:
@@ -175,10 +192,11 @@ export interface MemoListDataProps {
 }
 
 export interface MemoDataProps {
-  [key: string]: string | number | workoutNameType;
+  [key: string]: string | number | workoutNameType | undefined;
   userIdx: string;
   machineIdx: number;
-  noteIdx: number;
+  nodeIdx?: number;
+  noteIdx?: number;
   type: { engName: string; krName: string };
   color: string;
   text: string;
@@ -213,7 +231,7 @@ export interface IdxTypeProps extends IdxType {
 }
 
 export interface userProps {
-  userIdx?: string;
+  userIdx: string;
   success: boolean;
   accessToken: string;
 }
@@ -231,4 +249,9 @@ export interface colorTagProps {
   tagColor: PaletteKeyTypes;
   width?: string;
   height?: string;
+}
+
+export interface DayProps {
+  day: number;
+  isFull: boolean;
 }

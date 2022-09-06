@@ -10,13 +10,10 @@ import DotIndex from '../Index/DotIndex';
 import { useRecoilValueLoadable } from 'recoil';
 import { getNoteSelector } from '../../store/selectors/noteSelector';
 
-import { WORKOUT__INFO } from '../../constants/workout';
 import Loading from '../Loading';
 
 function MainNoteContainer() {
-  const memoList = useRecoilValueLoadable(
-    getNoteSelector({ userIdx: '12312312', machineIdx: WORKOUT__INFO.벤치프레스.index })
-  );
+  const memoList = useRecoilValueLoadable(getNoteSelector({ userIdx: '12312312', machineIdx: 0 }));
   switch (memoList.state) {
     case 'hasValue':
       return (

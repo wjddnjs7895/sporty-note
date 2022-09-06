@@ -3,27 +3,25 @@ import styled, { css } from 'styled-components/native';
 
 import MemoList from './MemoList';
 import { getWidthPixel } from '../../utils/responsive';
-import { getNoteSelector } from '../../store/selectors/noteSelector';
 
 import { WORKOUT__INFO } from '../../constants/workout';
-import { ImageStyle, NoteProps } from '../../constants/types';
-import { useRecoilValueLoadable } from 'recoil';
+import { ImageStyle, NoteDataProps } from '../../constants/types';
 import Loading from '../Loading';
+import { Loadable } from 'recoil';
 
-const Note = ({ ...rest }: NoteProps) => {
-  const memoList = useRecoilValueLoadable(getNoteSelector({ userIdx: rest.userIdx, machineIdx: rest.machineIdx }));
-  switch (memoList.state) {
+const Note = ({ ...note }: Loadable<NoteDataProps>) => {
+  switch (note.state) {
     case 'hasValue':
       return (
         <ContainerStyled>
-          <ImageStyled source={WORKOUT__INFO[rest.workoutName].url} width={rest.width} />
-          <MemoList {...memoList.contents.nodeDtos} />
+          <ImageStyled source={WORKOUT__INFO[note.contents.machineDto.machineIdx].url} />
+          <MemoList {...note.contents.nodeDtos} />
         </ContainerStyled>
       );
     case 'loading':
       return <Loading />;
     case 'hasError':
-      throw memoList.contents;
+      throw note.contents;
   }
 };
 

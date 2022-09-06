@@ -16,10 +16,15 @@ const RoundNoteContainer = () => {
       <Blank height={getHeightPixel(40)} />
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <Blank width={getWidthPixel(15)} />
-        <RoundNote userName="김종국" workoutName="벤치프레스" />
-        <RoundNote userName="김계란" workoutName="벤치프레스" />
-        <RoundNote userName="김종국" workoutName="벤치프레스" />
-        <RoundNote userName="김계란" workoutName="벤치프레스" />
+        <RoundNote
+          userIdx="김종국"
+          krMachineName="벤치프레스"
+          machineIdx={0}
+          targetArea="CHEST"
+          url="url"
+          engMachineName="benchpress"
+          userFavoriteIdx={0}
+        />
         <Blank width={getWidthPixel(15)} />
       </ScrollView>
     </ContainerStyled>
@@ -27,6 +32,7 @@ const RoundNoteContainer = () => {
 };
 
 const ContainerStyled = styled.View`=
+  width: ${getWidthPixel(390)};
 `;
 
 const InnerContainerStyled = styled.View`

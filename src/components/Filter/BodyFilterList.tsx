@@ -52,7 +52,7 @@ const ContainerStyled = styled.View`
   border-radius: ${getPixelToPixel(10)};
   border: 1px solid ${palette.gray_06};
   top: ${getHeightPixel(100)};
-  right: ${getWidthPixel(70)};
+  left: ${getWidthPixel(10)};
 `;
 
 const ButtonStyled = styled.TouchableOpacity`

@@ -12,16 +12,16 @@ function NoteSelectBar({ screenIdx, setIdx }: NoteSelectBarProps) {
   const appInfo = useRecoilValue(appState);
   return (
     <BarStyled>
-      <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={screenIdx === 0} onPress={() => setIdx(0)}>
+      <SelectBar fontNumber={3} width={getWidthPixel(178)} isSelected={screenIdx === 0} onPress={() => setIdx(0)}>
         {NOTE__HEADER__TEXT[0][appInfo.language]}
       </SelectBar>
-      <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={screenIdx === 1} onPress={() => setIdx(1)}>
+      {/* <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={screenIdx === 1} onPress={() => setIdx(1)}>
         {NOTE__HEADER__TEXT[1][appInfo.language]}
       </SelectBar>
       <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={screenIdx === 2} onPress={() => setIdx(2)}>
         {NOTE__HEADER__TEXT[2][appInfo.language]}
-      </SelectBar>
-      <SelectBar fontNumber={3} width={getWidthPixel(89)} isSelected={screenIdx === 3} onPress={() => setIdx(3)}>
+      </SelectBar> */}
+      <SelectBar fontNumber={3} width={getWidthPixel(178)} isSelected={screenIdx === 3} onPress={() => setIdx(3)}>
         {NOTE__HEADER__TEXT[3][appInfo.language]}
       </SelectBar>
     </BarStyled>

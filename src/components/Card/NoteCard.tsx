@@ -26,10 +26,10 @@ function NoteCard({ children, onPress, ...rest }: CardProps) {
         <FavoriteStyled>
           <FavoriteButton isSelected={false} buttonColor={'gray'} />
         </FavoriteStyled>
-        <SubHeadText fontNumber={3}>{rest.workoutName}</SubHeadText>
+        <SubHeadText fontNumber={3}>{rest.krMachineName}</SubHeadText>
         <Blank height={getHeightPixel(5)} />
         <BodyText fontNumber={7}>3개 메모</BodyText>
-        <ImageStyled source={WORKOUT__INFO[rest.workoutName].url} />
+        <ImageStyled source={WORKOUT__INFO[rest.machineIdx].url} />
       </CardStyled>
       <BoxStyled />
     </NoteCardStyled>

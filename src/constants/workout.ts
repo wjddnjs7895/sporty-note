@@ -1,21 +1,20 @@
 type WorkoutNameType = {
-  [index: string]: {
+  [index: number]: {
     url: number;
-    index: number;
   };
 };
 
 export const WORKOUT__INFO: WorkoutNameType = {
-  벤치프레스: {
+  0: {
     url: require('../assets/workouts/barbell_flat_bench_press.png'),
-    index: 1,
   },
-  딥스: {
-    url: require('../assets/workouts/dips.png'),
-    index: 2,
+  1: {
+    url: require('../assets/workouts/barbell_flat_bench_press.png'),
   },
-  랫풀다운: {
+  2: {
     url: require('../assets/workouts/dips.png'),
-    index: 2,
+  },
+  3: {
+    url: require('../assets/workouts/dips.png'),
   },
 };

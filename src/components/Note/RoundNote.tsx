@@ -12,7 +12,7 @@ const RoundNote = ({ ...rest }: NoteProps) => {
     <ContainerStyled>
       <RoundProfile />
       <Blank height={getHeightPixel(10)} />
-      <BodyText>{rest.userName}</BodyText>
+      <BodyText>{rest.userIdx}</BodyText>
       <BodyText>분석노트</BodyText>
     </ContainerStyled>
   );

@@ -12,3 +12,8 @@ export const NAVIGATION__TEXT = [
   ['검색', 'Search'],
   ['마이페이지', 'My Page'],
 ];
+
+export const EDIT__MODAL__TEXT = [
+  ['수정하기', 'Modify'],
+  ['삭제하기', 'Delete'],
+];

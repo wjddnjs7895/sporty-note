@@ -39,7 +39,7 @@ export const postMemoSelector = selectorFamily<
   {
     userIdx: string;
     machineIdx: number;
-    noteIdx: number;
+    noteIdx: number | undefined;
     type: { engName: string; krName: string };
     color: string;
     text: string;
