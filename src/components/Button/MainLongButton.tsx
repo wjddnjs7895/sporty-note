@@ -1,17 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 
 import { ButtonProps } from '../../constants/types';
 
 import { getPixelToPixel, getWidthPixel, getHeightPixelByWidth } from '../../utils/responsive';
 
-const MainLongButton = ({ children, ...rest }: ButtonProps) => {
+const MainLongButton = ({ children, onPress, ...rest }: ButtonProps) => {
   return (
-    <MainLongButtonStyled {...rest} colors={['#7FEB55', '#F0FB33']} start={{ x: 0.0, y: 0.5 }} end={{ x: 1, y: 0.5 }}>
-      {children}
-    </MainLongButtonStyled>
+    <TouchableOpacity onPress={onPress}>
+      <MainLongButtonStyled {...rest} colors={['#7FEB55', '#F0FB33']} start={{ x: 0.0, y: 0.5 }} end={{ x: 1, y: 0.5 }}>
+        {children}
+      </MainLongButtonStyled>
+    </TouchableOpacity>
   );
 };
 

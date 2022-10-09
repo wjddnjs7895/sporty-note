@@ -54,6 +54,7 @@ export default function BottomTabNavigator() {
         component={MyRoutineScreen}
         options={{
           title: NAVIGATION__TEXT[0][appInfo.language],
+          headerShown: false,
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Record_Selected_Icon /> : <Record_Icon />}</IconStyled>,
         }}
       />

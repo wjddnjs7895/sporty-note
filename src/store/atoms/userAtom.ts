@@ -6,7 +6,6 @@ export const userState = atom<userProps>({
   key: 'userState/' + Math.random(),
   default: {
     accessToken: '',
-    userIdx: '12312312',
     success: false,
   },
 });

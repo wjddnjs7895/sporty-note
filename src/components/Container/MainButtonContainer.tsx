@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
 import SubHeadText from '../Text/SubHeadText';
@@ -15,20 +15,22 @@ import Note_List_Icon from '../../assets/icons/illust/note_list.svg';
 import Favorite_Icon from '../../assets/icons/illust/favorite.svg';
 import Widget_Icon from '../../assets/icons/illust/widget.svg';
 import My_Routine_Icon from '../../assets/icons/illust/my_routine.svg';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavigationParam } from '../../constants/navigator';
+import { NavigationProps } from '../../constants/navigator';
+import ReadyModal from '../Modal/ReadyModal';
 
-function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationParam, 'MainScreen'>) {
+function MainButtonContainer({ navigation }: NavigationProps) {
+  const [visible, setVisible] = useState(false);
   return (
     <ContainerStyled>
-      <SearchBarButton>운동 방법을 검색해보세요.</SearchBarButton>
+      <ReadyModal isVisible={visible} setVisible={setVisible} />
+      <SearchBarButton onPress={() => navigation.navigate('SearchScreen')}>운동 방법을 검색해보세요.</SearchBarButton>
       <Blank height="25px" />
       <InnerContainerStyled>
         <Button
           width={getWidthPixel(211)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => navigation.navigate('MyRoutineScreen')}
+          onPress={() => navigation.navigate('NoteListScreen')}
         >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>노트 리스트</SubHeadText>
@@ -44,7 +46,7 @@ function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationPa
           width={getWidthPixel(136)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => navigation.navigate('NoteListScreen')}
+          onPress={() => setVisible(true)}
         >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>즐겨찾기</SubHeadText>
@@ -59,7 +61,7 @@ function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationPa
           width={getWidthPixel(136)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => navigation.navigate('NoteListScreen')}
+          onPress={() => setVisible(true)}
         >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>위젯</SubHeadText>
@@ -68,7 +70,12 @@ function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationPa
             <Widget_Icon />
           </ImageStyled>
         </Button>
-        <Button width={getWidthPixel(211)} height={MAIN_BUTTON_HEIGHT} buttonColor="white">
+        <Button
+          width={getWidthPixel(211)}
+          height={MAIN_BUTTON_HEIGHT}
+          buttonColor="white"
+          onPress={() => setVisible(true)}
+        >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>마이 루틴</SubHeadText>
             <BodyText fontNumber={5} fontColor={'gray_04'}>
@@ -80,7 +87,7 @@ function MainButtonContainer({ navigation }: NativeStackScreenProps<NavigationPa
           </ImageStyled>
         </Button>
       </InnerContainerStyled>
-      <MainLongButton>
+      <MainLongButton onPress={() => setVisible(true)}>
         <SubHeadText fontNumber={2}>마이 플레이스</SubHeadText>
         <BodyText fontNumber={5} fontColor={'white'}>
           내 근처 운동 기구를 찾아보세요!

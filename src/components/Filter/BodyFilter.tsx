@@ -5,10 +5,10 @@ import SubHeadText from '../Text/SubHeadText';
 
 import Show_All_Icon from '../../assets/icons/button/show_all.svg';
 import { BODY__LIST } from '../../constants/body';
-import { MemoInputModalProps } from '../../constants/types';
+import { SetBodyProps } from '../../constants/types';
 import BodyFilterList from './BodyFilterList';
 
-function BodyFilter({ body, setBody }: MemoInputModalProps) {
+function BodyFilter({ body, setBody }: SetBodyProps) {
   const [visible, setVisible] = useState<boolean>(false);
   return (
     <>

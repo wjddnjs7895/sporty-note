@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import SettingsContainer from '../components/Container/SettingsContainer';
 
 const UserScreen = () => {
   return (
     <View>
-      <Text>UserScreen</Text>
+      <SettingsContainer />
     </View>
   );
 };

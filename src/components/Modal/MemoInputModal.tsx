@@ -1,42 +1,60 @@
 import React, { useState } from 'react';
 
-import { Modal, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, Modal, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 import NoteHeaderContainer from '../Container/NoteHeaderContainer';
-import { NoteModalProps } from '../../constants/types';
+import { MemoInputModalProps } from '../../constants/types';
 import { getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 import { palette } from '../../constants/palette';
 import ColorTag from '../Note/ColorTag';
 import BodyFilter from '../Filter/BodyFilter';
 import Blank from '../Blank';
-import { BodyKeyTypes } from '../../constants/body';
-import { postMemoSelector } from '../../store/selectors/noteSelector';
+import { BodyKeyTypes, BODY__LIST } from '../../constants/body';
+import { modifyMemoSelector } from '../../store/selectors/noteSelector';
+import { postMemoAPI } from '../../utils/api';
+import { userState } from '../../store/atoms/userAtom';
+import { useRecoilValue } from 'recoil';
 
-function MemoInputModal({ goBack, isVisible, ...note }: NoteModalProps) {
-  const [body, setBody] = useState<BodyKeyTypes>('CHEST');
+function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
+  const [body, setBody] = useState<BodyKeyTypes>(note.body || 'CHEST');
   const [memoText, setText] = useState<string>('');
+  const userData = useRecoilValue(userState);
   return (
-    <>
+    <KeyboardAvoidingView behavior={'position'}>
       <Modal visible={isVisible} animationType={'slide'}>
         <ScrollView>
           <ContainerStyled>
             <NoteHeaderContainer
-              goBack={goBack}
+              title={note.krMachineName}
+              goBack={goBack || (() => {})}
               isInput={true}
               submit={() => {
-                goBack();
-                postMemoSelector({
-                  color: 'black',
-                  machineIdx: note.machineDto.machineIdx,
-                  noteIdx: note.noteIdx,
-                  pictureUrl: note.machineDto.url,
-                  text: memoText,
-                  type: { engName: note.machineDto.engMachineName, krName: note.machineDto.krMachineName },
-                  userIdx: '12312312',
-                  x_location: 0,
-                  y_location: 0,
-                });
+                if (goBack !== undefined) {
+                  goBack();
+                }
+                if (note.inputType === 0) {
+                  postMemoAPI({
+                    color: BODY__LIST[body].color,
+                    machineIdx: note.machineIdx || 0,
+                    noteIdx: note.noteIdx,
+                    pictureUrl: note.url || '',
+                    text: memoText,
+                    type: { krName: BODY__LIST[body].krName, engName: BODY__LIST[body].engName },
+                    x_location: 0,
+                    y_location: 0,
+                    accessToken: userData.accessToken,
+                  });
+                } else {
+                  modifyMemoSelector({
+                    nodeIdx: note.nodeIdx || 0,
+                    type: { krName: BODY__LIST[body].krName, engName: BODY__LIST[body].engName },
+                    color: BODY__LIST[body].color,
+                    text: memoText,
+                    pictureUrl: note.url || '',
+                    accessToken: userData.accessToken,
+                  });
+                }
               }}
             />
             <HeaderContainerStyled>
@@ -49,7 +67,7 @@ function MemoInputModal({ goBack, isVisible, ...note }: NoteModalProps) {
             </HeaderContainerStyled>
             <DividerStyled />
             <TextInputStyled
-              placeholder="오늘의 운동을 노트하세요!"
+              placeholder={note.text || '오늘의 운동을 노트하세요!'}
               placeholderTextColor={palette.gray_03}
               multiline={true}
               onChangeText={text => setText(text)}
@@ -57,7 +75,7 @@ function MemoInputModal({ goBack, isVisible, ...note }: NoteModalProps) {
           </ContainerStyled>
         </ScrollView>
       </Modal>
-    </>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -70,7 +88,7 @@ const TextInputStyled = styled.TextInput`
   font-family: 'Pretendard-Regular';
   color: black;
   width: ${getWidthPixel(342)};
-  height: ${getHeightPixel(600)};
+  height: ${getHeightPixel(300)};
   text-align-vertical: top;
 `;
 

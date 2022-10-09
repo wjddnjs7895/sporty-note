@@ -1,19 +1,31 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components/native';
 
 import { getPixelToPixel, getWidthPixel } from '../../utils/responsive';
-import { DayProps } from '../../constants/types';
+import { DayColorProps, DayProps, StyleProps } from '../../constants/types';
 import SubHeadText from '../Text/SubHeadText';
 import { palette } from '../../constants/palette';
 import Blank from '../Blank';
+import { format } from 'date-fns';
+import { getDayColor } from '../../utils';
 
-function DayBox({ day, isFull }: DayProps) {
+function DayBox({ day, isFull, isSelected, isToday, onDateClick }: DayProps) {
+  const [dayColor, setDayColor] = useState<DayColorProps>({ backgroundColor: 'none', fontColor: 'black' });
+  useEffect(() => {
+    setDayColor(getDayColor({ isSelected, isToday }));
+  }, [isSelected, isToday]);
   return (
-    <DayStyled>
-      <SubHeadText fontNumber={day}>1</SubHeadText>
-      <Blank height={getWidthPixel(10)} />
-      {isFull ? <IndexStyled /> : null}
-    </DayStyled>
+    <BoxStyled onPress={() => onDateClick(day)}>
+      {typeof day !== 'string' ? (
+        <DayStyled backgroundColor={dayColor.backgroundColor}>
+          <SubHeadText fontNumber={1} fontColor={dayColor.fontColor}>
+            {format(day, 'd')}
+          </SubHeadText>
+        </DayStyled>
+      ) : null}
+      <Blank height={getWidthPixel(5)} />
+      {isFull && typeof day !== 'string' ? <IndexStyled /> : null}
+    </BoxStyled>
   );
 }
 
@@ -24,10 +36,22 @@ const IndexStyled = styled.View`
   background-color: ${palette.gray_07};
 `;
 
-const DayStyled = styled.View`
+const BoxStyled = styled.TouchableOpacity`
   width: ${getWidthPixel(50)};
   height: ${getWidthPixel(50)};
+  border-radius: ${getWidthPixel(15)};
   align-items: center;
+`;
+
+const DayStyled = styled.View<StyleProps>`
+  width: ${getWidthPixel(30)};
+  height: ${getWidthPixel(30)};
+  border-radius: ${getWidthPixel(15)};
+  align-items: center;
+  justify-content: center;
+  ${({ backgroundColor = 'none' }) => css`
+    background-color: ${palette[backgroundColor]};
+  `}
 `;
 
 export default DayBox;

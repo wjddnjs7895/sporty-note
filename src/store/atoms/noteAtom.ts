@@ -1,7 +1,12 @@
 import { atom } from 'recoil';
-import { workoutProps } from '../../constants/types';
 
-export const workoutState = atom<workoutProps>({
+export const workoutState = atom<{
+  engMachineName: string;
+  krMachineName: string;
+  targetArea: string;
+  url: string;
+  machineIdx: number;
+}>({
   key: 'workoutState',
   default: {
     engMachineName: '',

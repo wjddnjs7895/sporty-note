@@ -6,8 +6,9 @@ import { getWidthPixel, getPixelToNumber } from '../../utils/responsive';
 import Edit_Icon from '../../assets/icons/button/edit.svg';
 import EditModal from '../Modal/EditModal';
 import { TouchableOpacity, View } from 'react-native';
+import { MemoData } from '../../constants/types';
 
-function EditModalButton() {
+function EditModalButton({ ...note }: MemoData) {
   const ViewRef = useRef<View>(null);
   const [isVisible, setVisible] = useState<boolean>(false);
   const [location, setLocation] = useState<number[]>([0, 0]);
@@ -24,7 +25,7 @@ function EditModalButton() {
       <TouchableOpacity onPress={() => setVisible(!isVisible)}>
         <EditIconStyled viewBox={'0 0 ' + getPixelToNumber(30) + ' ' + getPixelToNumber(30)} />
       </TouchableOpacity>
-      {isVisible ? <EditModal location={location} isVisible={isVisible} setVisible={setVisible} /> : null}
+      {isVisible ? <EditModal location={location} isVisible={isVisible} setVisible={setVisible} {...note} /> : null}
     </View>
   );
 }

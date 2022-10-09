@@ -8,10 +8,9 @@ import MainNoteContainer from '../components/Container/MainNoteContainer';
 
 import { BackgroundStyle } from '../constants/styles';
 import { getHeightPixel } from '../utils/responsive';
-import { NavigationParam } from '../constants/navigator';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavigationProps } from '../constants/navigator';
 
-const MainScreen = ({ navigation, route }: NativeStackScreenProps<NavigationParam, 'MainScreen'>) => {
+const MainScreen = ({ navigation, route }: NavigationProps) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <ScreenStyled>

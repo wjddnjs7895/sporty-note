@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { ScrollView } from 'react-native';
 
 import SearchBarContainer from '../components/Container/SearchBarContainer';
 import SearchCardContainer from '../components/Container/SearchCardContainer';
@@ -8,15 +7,17 @@ import SearchCardContainer from '../components/Container/SearchCardContainer';
 import { palette } from '../constants/palette';
 
 const SearchScreen = () => {
+  const [keyword, setKeyword] = useState<string>('');
   return (
-    <ContainerStyled showsVerticalScrollIndicator={false}>
-      <SearchBarContainer />
-      <SearchCardContainer />
+    <ContainerStyled>
+      <SearchBarContainer keyword={keyword} setKeyword={setKeyword} />
+      <SearchCardContainer keyword={keyword} />
     </ContainerStyled>
   );
 };
 
-const ContainerStyled = styled(ScrollView)`
+const ContainerStyled = styled.View`
+  width: 100%;
   background-color: ${palette.white};
 `;
 

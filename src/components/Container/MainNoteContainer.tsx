@@ -7,19 +7,21 @@ import MemoList from '../Note/MemoList';
 import Blank from '../Blank';
 import { getWidthPixel, getHeightPixel } from '../../utils/responsive';
 import DotIndex from '../Index/DotIndex';
-import { useRecoilValueLoadable } from 'recoil';
-import { getNoteSelector } from '../../store/selectors/noteSelector';
+import { useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { getGeneralNoteSelector } from '../../store/selectors/noteSelector';
 
 import Loading from '../Loading';
+import { userState } from '../../store/atoms/userAtom';
 
 function MainNoteContainer() {
-  const memoList = useRecoilValueLoadable(getNoteSelector({ userIdx: '12312312', machineIdx: 0 }));
+  const userData = useRecoilValue(userState);
+  const memoList = useRecoilValueLoadable(getGeneralNoteSelector({ machineIdx: 0, accessToken: userData.accessToken }));
   switch (memoList.state) {
     case 'hasValue':
       return (
         <ContainerStyled>
           <HeaderStyled>
-            <SelectBar isSelected={true}>운동정도</SelectBar>
+            <SelectBar isSelected={true}>운동정보</SelectBar>
             <SelectBar>내 근처 운동</SelectBar>
           </HeaderStyled>
           <Blank height={'25px'} />
@@ -36,7 +38,7 @@ function MainNoteContainer() {
 }
 
 const HeaderStyled = styled.View`
-  flex-direction: row;
+  flex-direction: row;ㅡㅜㅜ
   align-items: center;
   margin-top: ${getHeightPixel(30)};
 `;

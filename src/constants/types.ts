@@ -1,7 +1,11 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { RecoilValueReadOnly } from 'recoil';
 import { BodyKeyTypes } from './body';
+import { BottomTabNavigationParam } from './navigator';
 import { PaletteKeyTypes } from './palette';
+
+export interface StyleProps {
+  backgroundColor?: PaletteKeyTypes | string;
+}
 
 export interface TextStyle {
   fontNumber?: number;
@@ -35,6 +39,12 @@ export interface ButtonProps extends ButtonStyle {
   className?: string;
 }
 
+export interface InputProps extends ButtonProps {
+  placeHolder?: string;
+  keyword: string;
+  onChangeText: Dispatch<SetStateAction<string>>;
+}
+
 export interface BlankStyle {
   width?: string;
   height?: string;
@@ -58,14 +68,8 @@ export interface CardStyle {
   onPress?: () => void | void;
 }
 
-export interface CardProps extends CardStyle {
+export interface CardProps extends CardStyle, NoteProps {
   children?: ReactNode;
-  engMachineName: string;
-  krMachineName: string;
-  targetArea: string;
-  url: string;
-  userFavoriteIdx: number;
-  machineIdx: number;
 }
 
 export interface ImageStyle {
@@ -87,24 +91,9 @@ export interface ContainerProps extends ContainerStyle {
   className?: string;
 }
 
-export interface MemoStyle {
-  tagColor: PaletteKeyTypes;
-}
-
-export interface MemoProps extends MemoStyle {
-  children?: ReactNode;
-  memoTitle: BodyKeyTypes;
-  momoContent?: MemoDataProps;
-}
-
 export interface FilterBarProps {
   children?: ReactNode;
   barTitle?: string;
-}
-
-export interface NoteStyle {
-  width?: string;
-  height?: string;
 }
 
 export interface NoteSelectBarProps {
@@ -112,107 +101,99 @@ export interface NoteSelectBarProps {
   setIdx: Dispatch<SetStateAction<number>>;
 }
 
-export interface NoteScreenHeaderProps {
+export interface HeaderProps {
   goBack: () => void;
   isInput?: boolean;
   submit?: () => void;
+  setTitle?: Dispatch<SetStateAction<string>>;
+  title?: string;
 }
 
 export interface ModalStyle {
+  location?: number[];
+  width?: string;
+  height?: string;
+}
+
+export interface ModalProps<T = undefined> extends ModalStyle {
+  isVisible: boolean;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  state?: T;
+  setFunc?: Dispatch<SetStateAction<T>>;
+  goBack?: () => void;
+  questionText?: string;
+  yesText?: string;
+  noText?: string;
+}
+
+export interface DeleteModalProps extends ModalProps {
+  nodeIdx: number;
+}
+
+export interface MemoInputModalProps extends ModalProps, NoteProps {
+  body?: BodyKeyTypes;
+  visible?: boolean;
+  text?: string;
+  inputType?: number;
+}
+
+export interface EditModalProps extends ModalProps, MemoData {
   location: number[];
 }
 
-export interface ModalProps extends ModalStyle {
-  isVisible: boolean;
-  setVisible: Dispatch<SetStateAction<boolean>>;
-  goBack?: () => void;
-}
-
-export interface NoteModalProps extends NoteDataProps {
-  isVisible: boolean;
-  goBack: () => void;
-  isInput?: boolean;
-  submit?: RecoilValueReadOnly<number>;
-}
-
-export interface MemoInputModalProps {
+export interface SetBodyProps {
   body: BodyKeyTypes;
-  visible?: boolean;
   setBody: Dispatch<SetStateAction<BodyKeyTypes>>;
 }
 
-export interface BodyFilterProps extends MemoInputModalProps {
+export interface BodyFilterProps extends SetBodyProps {
+  visible?: boolean;
   setVisible: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface NoteProps extends NoteStyle {
-  children?: ReactNode;
-  userIdx: string;
-  noteIdx?: number;
-  machineIdx: number;
-  targetArea: string;
-  url: string;
-  krMachineName: string;
+export interface machineProps {
   engMachineName: string;
-  userFavoriteIdx: number;
-}
-
-export interface workoutProps {
-  machineIdx: number;
   krMachineName: string;
-  engMachineName: string;
-  targetArea: string;
-  url: string;
+  machineIdx: number;
+  targetArea?: string;
+  url?: string;
   userFavoriteIdx?: number;
 }
 
-export interface NoteDataProps {
+export interface NoteProps extends machineProps {
+  noteIdx?: number;
+  nodeIdx?: number;
+  imageUrl1?: string;
+  imageUrl2?: string;
+  videoUrl1?: string;
+}
+
+export interface NoteNavigatorProps extends NoteProps {
+  goBackKey: keyof BottomTabNavigationParam;
+}
+
+export interface NoteData {
   noteIdx: number;
-  machineDto: workoutProps;
+  machineDto: NoteProps;
   nodeDtos: {
-    [key: BodyKeyTypes]:
-      | string
-      | workoutProps
-      | {
-          userIdx: string;
-          machineIdx: number;
-          nodeIdx: number;
-          type: { engName: string; krName: string };
-          color: string;
-          text: string;
-          x_location: number;
-          y_location: number;
-          pictureUrl: string;
-        };
+    [key: BodyKeyTypes]: MemoData[];
   };
 }
 
-export interface MemoListDataProps {
-  [key: BodyKeyTypes]: MemoDataProps[];
-}
-
-export interface MemoDataProps {
-  [key: string]: string | number | workoutNameType | undefined;
-  userIdx: string;
-  machineIdx: number;
-  nodeIdx?: number;
-  noteIdx?: number;
+export interface MemoData {
+  machineIdx?: number;
+  nodeIdx: number;
   type: { engName: string; krName: string };
   color: string;
   text: string;
-  x_location: number;
-  y_location: number;
+  x_location?: number;
+  y_location?: number;
   pictureUrl: string;
+  body: BodyKeyTypes;
 }
 
-export interface workoutNameType {
-  engName: string;
-  krName: string;
-}
-
-export interface MemoTypeProps {
-  engName: string;
-  krName: string;
+export interface MemoStyle {
+  tagColor: PaletteKeyTypes;
 }
 
 export interface MemoTitleProps {
@@ -222,17 +203,21 @@ export interface MemoTitleProps {
 }
 
 export interface IdxType {
-  userIdx: string;
   machineIdx: number;
 }
 
-export interface IdxTypeProps extends IdxType {
+export interface IdxTypeProps extends IdxType, tokenProps {
   [key: string]: string | number;
 }
 
+export interface tokenProps {
+  [key: string]: string | number;
+  accessToken: string;
+}
+
 export interface userProps {
-  userIdx: string;
-  success: boolean;
+  [key: string]: boolean | string | undefined;
+  success?: boolean;
   accessToken: string;
 }
 
@@ -252,6 +237,19 @@ export interface colorTagProps {
 }
 
 export interface DayProps {
-  day: number;
+  day: Date | string;
   isFull: boolean;
+  isSelected: boolean;
+  isToday: boolean;
+  onDateClick: (day: Date | string) => void;
+}
+
+export interface DayColorProps {
+  backgroundColor: PaletteKeyTypes;
+  fontColor: PaletteKeyTypes;
+}
+
+export interface dateProps {
+  [key: string]: Date;
+  selectedDay: Date;
 }

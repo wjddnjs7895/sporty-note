@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import styled, { css } from 'styled-components/native';
 import { Platform } from 'react-native';
@@ -7,19 +6,19 @@ import { CardProps, CardStyle, ImageStyle } from '../../constants/types';
 import { getWidthPixel, getHeightPixelByWidth, getPixelToPixel, getHeightPixel } from '../../utils/responsive';
 import { palette } from '../../constants/palette';
 import SubHeadText from '../Text/SubHeadText';
+import { RESOURCE_PREFIX } from '../../constants';
 
-import { WORKOUT__INFO } from '../../constants/workout';
-
-function Card({ children, ...rest }: CardProps) {
+function Card({ children, onPress, ...rest }: CardProps) {
   return (
-    <CardStyled {...rest}>
-      <ImageStyled source={WORKOUT__INFO[rest.machineIdx].url} />
+    <CardStyled {...rest} onPress={onPress}>
+      <ImageStyled source={{ uri: RESOURCE_PREFIX + rest.imageUrl1 }} />
       <SubHeadText fontNumber={4}>{rest.krMachineName}</SubHeadText>
+      {children}
     </CardStyled>
   );
 }
 
-const CardStyled = styled.View<CardStyle>`
+const CardStyled = styled.TouchableOpacity<CardStyle>`
   align-items: center;
   justify-content: center;
   border-radius: ${getPixelToPixel(10)};
@@ -27,8 +26,7 @@ const CardStyled = styled.View<CardStyle>`
     width = getWidthPixel(150),
     height = getHeightPixelByWidth(150, 150),
     isSelected = false,
-    backgroundColor = 'gray_07',
-    selectedColor = 'lime_01',
+    backgroundColor = 'gray_06',
     marginTop = '0px',
     marginBottom = '0px',
     marginLeft = '0px',
@@ -41,7 +39,8 @@ const CardStyled = styled.View<CardStyle>`
     margin-bottom: ${marginBottom};
     margin-left: ${marginLeft};
     margin-right: ${marginRight};
-    background-color: ${isSelected ? palette[selectedColor] : palette[backgroundColor]};
+    background-color: ${isSelected ? '#0000004d' : palette[backgroundColor]};
+    border: ${isSelected ? '2px' : '0px'} solid ${isSelected ? palette.lime_02 : null};
     ${hasShadow
       ? Platform.select({
           ios: css`

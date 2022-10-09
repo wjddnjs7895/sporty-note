@@ -3,6 +3,7 @@ import { selectorFamily } from 'recoil';
 
 import { loginProps, userProps } from '../../constants/types';
 import { BASE__URL } from '../../constants';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const getKakaoUserSelector = selectorFamily<userProps, loginProps>({
   key: 'kakao_user/get',
@@ -20,6 +21,8 @@ export const getKakaoUserSelector = selectorFamily<userProps, loginProps>({
           code: code,
         },
       });
+
+      AsyncStorage.setItem('userData', JSON.stringify({ accessToken: data.accessToken }));
       return data;
     },
 });

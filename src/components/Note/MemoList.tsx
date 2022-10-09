@@ -1,13 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components/native';
+import { BodyKeyTypes } from '../../constants/body';
+import { MemoData } from '../../constants/types';
 
-import { MemoListDataProps } from '../../constants/types';
 import { getMemoTitle } from '../../utils';
 import { getHeightPixelByWidth, getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 import Memo from './Memo';
 
-function MemoList({ ...memoList }: MemoListDataProps) {
+function MemoList({ ...memoList }: { [key: BodyKeyTypes]: MemoData[] }) {
   const MemoBodyList = getMemoTitle(memoList);
   return (
     <ContainerStyled>

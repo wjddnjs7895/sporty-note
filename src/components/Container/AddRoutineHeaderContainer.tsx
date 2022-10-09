@@ -6,34 +6,40 @@ import { getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/resp
 
 import Button from '../Button';
 import BackButton from '../Button/BackButton';
-import FavoriteButton from '../Button/FavoriteButton';
 import BodyText from '../Text/BodyText';
-import HeadText from '../Text/HeadText';
 
-function NoteHeaderContainer({ goBack, isInput, submit, title }: HeaderProps) {
+function AddRoutineHeaderContainer({ goBack, submit, setTitle }: HeaderProps) {
   return (
     <ContainerStyled>
       <BackButtonStyled>
         <BackButton onPress={goBack} />
       </BackButtonStyled>
-      <HeadText fontNumber={2}>{title}</HeadText>
+      <TextInputStyled
+        placeholder=" Title"
+        onChangeText={title => {
+          if (setTitle) {
+            setTitle(title);
+          }
+        }}
+      />
       <ButtonTypeStyled>
-        {isInput ? (
-          <ButtonStyled
-            width={getWidthPixel(48)}
-            height={getHeightPixel(30)}
-            borderRadius={getPixelToPixel(21)}
-            buttonColor={'black'}
-            hasShadow={false}
-            onPress={submit}
-          >
-            <TextStyled fontNumber={5} fontColor="white">
-              저장
-            </TextStyled>
-          </ButtonStyled>
-        ) : (
-          <FavoriteButton isSelected={false} buttonColor="white" />
-        )}
+        <ButtonStyled
+          width={getWidthPixel(48)}
+          height={getHeightPixel(30)}
+          borderRadius={getPixelToPixel(21)}
+          buttonColor={'black'}
+          hasShadow={false}
+          onPress={() => {
+            if (submit) {
+              submit();
+            }
+            goBack();
+          }}
+        >
+          <TextStyled fontNumber={5} fontColor="white">
+            저장
+          </TextStyled>
+        </ButtonStyled>
       </ButtonTypeStyled>
     </ContainerStyled>
   );
@@ -48,7 +54,7 @@ const ContainerStyled = styled.View`
   height: ${getHeightPixel(60)};
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: ${getWidthPixel(390)};
   background-color: ${palette.gray_06};
 `;
 
@@ -66,4 +72,13 @@ const ButtonStyled = styled(Button)`
   justify-content: center;
 `;
 
-export default NoteHeaderContainer;
+const TextInputStyled = styled.TextInput.attrs({
+  placeholderTextColor: '#ededed',
+  selectionColor: palette.lime_01,
+})`
+  font-size: ${getPixelToPixel(20)};
+  font-family: 'Pretendard-ExtraBold';
+  width: ${getWidthPixel(280)};
+`;
+
+export default AddRoutineHeaderContainer;

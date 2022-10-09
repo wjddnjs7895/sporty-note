@@ -4,25 +4,16 @@ import styled, { css } from 'styled-components/native';
 import MemoList from './MemoList';
 import { getWidthPixel } from '../../utils/responsive';
 
-import { WORKOUT__INFO } from '../../constants/workout';
-import { ImageStyle, NoteDataProps } from '../../constants/types';
-import Loading from '../Loading';
-import { Loadable } from 'recoil';
+import { ImageStyle, NoteData } from '../../constants/types';
+import { RESOURCE_PREFIX } from '../../constants';
 
-const Note = ({ ...note }: Loadable<NoteDataProps>) => {
-  switch (note.state) {
-    case 'hasValue':
-      return (
-        <ContainerStyled>
-          <ImageStyled source={WORKOUT__INFO[note.contents.machineDto.machineIdx].url} />
-          <MemoList {...note.contents.nodeDtos} />
-        </ContainerStyled>
-      );
-    case 'loading':
-      return <Loading />;
-    case 'hasError':
-      throw note.contents;
-  }
+const Note = ({ ...note }: NoteData) => {
+  return (
+    <ContainerStyled>
+      <ImageStyled source={{ uri: RESOURCE_PREFIX + note.machineDto.imageUrl1 }} />
+      <MemoList {...note.nodeDtos} />
+    </ContainerStyled>
+  );
 };
 
 const ImageStyled = styled.Image<ImageStyle>`

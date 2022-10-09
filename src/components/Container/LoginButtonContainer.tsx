@@ -1,18 +1,19 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import styled from 'styled-components/native';
-import { NavigationParam } from '../../constants/navigator';
+import { NavigationProps } from '../../constants/navigator';
 import { getHeightPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 import GoogleLoginButton from '../Login/GoogleLoginButton';
 import KakaoLoginButton from '../Login/KakaoLoginButton';
 
-function LoginButtonContainer({ navigation }: NativeStackScreenProps<NavigationParam, 'MainScreen'>) {
+function LoginButtonContainer() {
+  const navigation = useNavigation<NavigationProps['navigation']>();
   return (
     <ContainerStyled>
       <GoogleLoginButton />
       <Blank height={getHeightPixel(15)} />
-      <KakaoLoginButton onPress={() => navigation.push('KakaoLoginWebScreen')} />
+      <KakaoLoginButton onPress={() => navigation.navigate('KakaoLoginWebScreen')} />
     </ContainerStyled>
   );
 }

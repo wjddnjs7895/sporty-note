@@ -1,68 +1,102 @@
 import axios from 'axios';
-import { selector, selectorFamily } from 'recoil';
+import { selectorFamily } from 'recoil';
 
 import { BASE__URL } from '../../constants';
-import { IdxTypeProps, NoteDataProps, NoteProps, MemoDataProps } from '../../constants/types';
+import { IdxTypeProps, NoteData, NoteProps, userProps } from '../../constants/types';
 
-export const getNoteSelector = selectorFamily<NoteDataProps, IdxTypeProps>({
-  key: 'notes/get',
+export const getGeneralNoteSelector = selectorFamily<NoteData, IdxTypeProps>({
+  key: 'notes/general/get',
   get:
-    ({ userIdx, machineIdx }: IdxTypeProps) =>
+    ({ machineIdx, accessToken }: IdxTypeProps) =>
     async () => {
-      if (!userIdx || !machineIdx) {
+      if (!machineIdx) {
         return '';
       }
-      const { data } = await axios.get(`${BASE__URL}notes`, {
+      const { data } = await axios.get(`${BASE__URL}notes/general`, {
         params: {
           machineId: machineIdx,
-          userId: userIdx,
+        },
+        headers: {
+          Authorization: accessToken,
         },
       });
       return data;
     },
 });
 
-export const getNoteListSelector = selector<NoteProps[]>({
-  key: 'notes_list/get',
-  get: async () => {
-    const { data } = await axios.get(`${BASE__URL}notes/machines`, {
-      params: {
-        userId: '12312312',
-      },
-    });
-    return data;
-  },
+export const getNoteSelector = selectorFamily<NoteData, IdxTypeProps>({
+  key: 'notes/get',
+  get:
+    ({ machineIdx, accessToken }: IdxTypeProps) =>
+    async () => {
+      if (!machineIdx) {
+        return '';
+      }
+      const { data } = await axios.get(`${BASE__URL}notes`, {
+        params: {
+          machineId: machineIdx,
+        },
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      return data;
+    },
 });
 
-export const postMemoSelector = selectorFamily<
+export const getNoteListSelector = selectorFamily<NoteProps[], userProps>({
+  key: 'notes_list/get',
+  get:
+    ({ accessToken }) =>
+    async () => {
+      if (!accessToken) {
+        return [];
+      }
+      const { data } = await axios.get(`${BASE__URL}notes/machines`, {
+        headers: {
+          Authorization: accessToken,
+        },
+      });
+      return data;
+    },
+});
+
+export const modifyMemoSelector = selectorFamily<
   number,
   {
-    userIdx: string;
-    machineIdx: number;
-    noteIdx: number | undefined;
+    nodeIdx: number;
     type: { engName: string; krName: string };
     color: string;
     text: string;
-    x_location: number;
-    y_location: number;
     pictureUrl: string;
+    accessToken: string;
   }
 >({
   key: 'nodes/post',
   get:
-    ({ color, machineIdx, noteIdx, pictureUrl, text, type, userIdx, x_location, y_location }: MemoDataProps) =>
+    ({ color, nodeIdx, pictureUrl, text, type }) =>
     async () => {
-      const { data } = await axios.post(`${BASE__URL}nodes`, {
+      const { data } = await axios.put(`${BASE__URL}nodes`, {
         params: {
           color: color,
-          noteIdx: noteIdx,
+          nodeIdx: nodeIdx,
           pictureUrl: pictureUrl,
           text: text,
           type: type,
-          x_location: x_location,
-          y_location: y_location,
-          machineIdx: machineIdx,
-          userIdx: userIdx,
+        },
+      });
+      return data;
+    },
+});
+
+export const deleteMemoSelector = selectorFamily<number, { note_node_idx: number }>({
+  key: 'memo/delete',
+  get:
+    ({ note_node_idx }) =>
+    async () => {
+      const { data } = await axios.delete(`${BASE__URL}nodes`, {
+        params: {
+          note_node_idx: note_node_idx,
         },
       });
       return data;

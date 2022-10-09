@@ -6,11 +6,11 @@ import BodyText from '../Text/BodyText';
 
 import { palette } from '../../constants/palette';
 import Text_Icon from '../../assets/icons/icon/text.svg';
-import { MemoDataProps } from '../../constants/types';
+import { MemoData } from '../../constants/types';
 import { View } from 'react-native';
 import EditModalButton from '../Button/EditModalButton';
 
-function MemoContent(memoContent: MemoDataProps[]) {
+function MemoContent(memoContent: MemoData[]) {
   return (
     <ContainerStyled>
       {Object.values(memoContent).map((memo, index) => (
@@ -20,7 +20,15 @@ function MemoContent(memoContent: MemoDataProps[]) {
               <ImageStyled />
             </ImageCoverStyled>
             <MemoTextStyled>{memo.text}</MemoTextStyled>
-            <EditModalButton />
+            <EditModalButton
+              nodeIdx={memo.nodeIdx}
+              color={memo.color}
+              pictureUrl={memo.pictureUrl}
+              text={memo.text}
+              type={memo.type}
+              body={memo.body}
+              machineIdx={memo.machineIdx}
+            />
           </InnerContainerStyled>
           {index + 1 !== Object.values(memoContent).length ? <DividerStyled /> : null}
         </View>

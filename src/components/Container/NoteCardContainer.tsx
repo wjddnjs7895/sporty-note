@@ -1,20 +1,27 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
-import { NavigationParam } from '../../constants/navigator';
+import { NavigationProps } from '../../constants/navigator';
+import { userState } from '../../store/atoms/userAtom';
 import { getNoteListSelector } from '../../store/selectors/noteSelector';
 import { getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 
 import NoteCard from '../Card/NoteCard';
 
-function NoteCardContainer({ navigation }: NativeStackScreenProps<NavigationParam, 'NoteListScreen'>) {
-  const noteList = useRecoilValue(getNoteListSelector);
+function NoteCardContainer({ navigation }: NavigationProps) {
+  const userData = useRecoilValue(userState);
+  const noteList = useRecoilValue(getNoteListSelector({ ...userData }));
   return (
     <ListStyled>
       {noteList.map(note => {
-        return <NoteCard key={note.machineIdx} {...note} onPress={() => navigation.push('NoteScreen', { ...note })} />;
+        return (
+          <NoteCard
+            key={note.machineIdx}
+            {...note}
+            onPress={() => navigation.push('NoteScreen', { goBackKey: 'NoteListScreen', ...note })}
+          />
+        );
       })}
       <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
     </ListStyled>

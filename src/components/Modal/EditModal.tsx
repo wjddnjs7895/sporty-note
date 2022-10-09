@@ -1,34 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Platform } from 'react-native';
 import Modal from 'react-native-modal';
 import styled, { css } from 'styled-components/native';
 
 import { getWidthPixel, getHeightPixel, getPixelToNumber } from '../../utils/responsive';
+import { modifyMemoSelector } from '../../store/selectors/noteSelector';
 
-import { ModalProps, ModalStyle } from '../../constants/types';
+import { EditModalProps, ModalStyle } from '../../constants/types';
 import { EDIT__MODAL__TEXT } from '../../constants/text';
 import BodyText from '../Text/BodyText';
 import { palette } from '../../constants/palette';
+import ConfirmModal from './ConfirmModal';
+import { CONFIRM__MODAL__TEXT } from '../../constants/text';
+import MemoInputModal from './MemoInputModal';
 
-function EditModal({ location, isVisible, setVisible }: ModalProps) {
+function EditModal({ location, isVisible, setVisible, ...note }: EditModalProps) {
+  const [confirmVisible, setConfirmVisible] = useState<boolean>(false);
+  const [inputVisible, setInputVisible] = useState<boolean>(false);
   return (
     <>
       <Modal
         isVisible={isVisible}
-        onBackdropPress={() => setVisible(false)}
+        onBackdropPress={() => {
+          if (setVisible !== undefined) {
+            setVisible(false);
+          }
+        }}
         backdropOpacity={0}
         animationInTiming={1}
         animationOutTiming={1}
       >
         <ContainerStyled location={location}>
-          <InnerContainerStyled>
+          <InnerButtonStyled onPress={() => modifyMemoSelector({ ...note })}>
             <BodyText fontNumber={4}>{EDIT__MODAL__TEXT[0][0]}</BodyText>
-          </InnerContainerStyled>
+          </InnerButtonStyled>
           <DividerStyled />
-          <InnerContainerStyled>
+          <InnerButtonStyled onPress={() => setConfirmVisible(true)}>
             <BodyText fontNumber={4}>{EDIT__MODAL__TEXT[1][0]}</BodyText>
-          </InnerContainerStyled>
+          </InnerButtonStyled>
         </ContainerStyled>
+        {confirmVisible ? (
+          <ConfirmModal
+            questionText={CONFIRM__MODAL__TEXT[0][0]}
+            yesText={CONFIRM__MODAL__TEXT[1][0]}
+            noText={CONFIRM__MODAL__TEXT[2][0]}
+            isVisible={confirmVisible}
+            setVisible={setConfirmVisible}
+            nodeIdx={note.nodeIdx}
+          />
+        ) : null}
+        {inputVisible ? (
+          <MemoInputModal
+            setVisible={() => setInputVisible(false)}
+            goBack={() => setInputVisible(false)}
+            inputType={1}
+            isVisible={inputVisible}
+            nodeIdx={note.nodeIdx}
+            machineIdx={note.machineIdx || 0}
+            krMachineName={note.type.krName}
+            engMachineName={note.type.engName}
+            text={note.text}
+            body={note.body}
+          />
+        ) : null}
       </Modal>
     </>
   );
@@ -58,7 +92,7 @@ const ContainerStyled = styled.View<ModalStyle>`
   })}
 `;
 
-const InnerContainerStyled = styled.View`
+const InnerButtonStyled = styled.TouchableOpacity`
   height: ${getHeightPixel(40)};
   justify-content: center;
   text-align: center;

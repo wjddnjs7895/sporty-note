@@ -17,3 +17,9 @@ export const EDIT__MODAL__TEXT = [
   ['수정하기', 'Modify'],
   ['삭제하기', 'Delete'],
 ];
+
+export const CONFIRM__MODAL__TEXT = [
+  ['메모를 삭제하시겠습니까?', 'Delete Memo'],
+  ['삭제', 'Delete'],
+  ['취소', 'Cancel'],
+];

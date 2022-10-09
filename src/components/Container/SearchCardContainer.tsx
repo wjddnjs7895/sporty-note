@@ -3,25 +3,47 @@ import styled from 'styled-components/native';
 
 import Card from '../Card';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
-import Blank from '../Blank';
+import { getAllWorkoutSelector } from '../../store/selectors/machineSelector';
+import { useRecoilValue } from 'recoil';
+import { NavigationProps } from '../../constants/navigator';
+import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native';
 
-function SearchCardContainer() {
+function SearchCardContainer({ keyword }: { keyword: string }) {
+  const cardList = useRecoilValue(getAllWorkoutSelector);
+  const navigation = useNavigation<NavigationProps['navigation']>();
+  const regex = new RegExp(keyword + '.*');
   return (
-    <ListStyled>
-      <Card
-        targetArea="CHEST"
-        url="url"
-        machineIdx={0}
-        userFavoriteIdx={0}
-        krMachineName="벤치프레스"
-        engMachineName="benchpress"
-        width={getWidthPixel(170)}
-        height={getWidthPixel(170)}
-        marginTop={getHeightPixel(9)}
-        marginBottom={getHeightPixel(9)}
-      />
-      <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
-    </ListStyled>
+    <ScrollView showsVerticalScrollIndicator={true}>
+      <ListStyled>
+        {cardList.map(card => {
+          if (regex.test(card.krMachineName) || regex.test(card.engMachineName)) {
+            return (
+              <Card
+                key={card.machineIdx}
+                {...card}
+                onPress={() =>
+                  navigation.navigate('NoteNavigator', {
+                    screen: 'NoteScreen',
+                    params: {
+                      machineIdx: card.machineIdx,
+                      krMachineName: card.krMachineName,
+                      engMachineName: card.engMachineName,
+                      goBackKey: 'SearchScreen',
+                    },
+                  })
+                }
+                machineIdx={card.machineIdx}
+                width={getWidthPixel(170)}
+                height={getWidthPixel(170)}
+                marginTop={getHeightPixel(9)}
+                marginBottom={getHeightPixel(9)}
+              />
+            );
+          }
+        })}
+      </ListStyled>
+    </ScrollView>
   );
 }
 

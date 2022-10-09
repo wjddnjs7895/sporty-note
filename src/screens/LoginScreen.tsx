@@ -5,16 +5,13 @@ import Logo_Gradient from '../assets/logo/logo_gradient.png';
 import Lettering_Black from '../assets/logo/lettering_black.png';
 import { getWidthPixel, getHeightPixel } from '../utils/responsive';
 import LoginButtonContainer from '../components/Container/LoginButtonContainer';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavigationParam } from '../constants/navigator';
-
-const LoginScreen = ({ navigation, route }: NativeStackScreenProps<NavigationParam, 'MainScreen'>) => {
+const LoginScreen = () => {
   return (
     <>
       <LogoStyled source={Logo_Gradient} />
       <LetterStyled source={Lettering_Black} />
       <InnerContainerStyled>
-        <LoginButtonContainer navigation={navigation} route={route} />
+        <LoginButtonContainer />
       </InnerContainerStyled>
     </>
   );

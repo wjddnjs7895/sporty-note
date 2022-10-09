@@ -1,18 +1,26 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { Dispatch, SetStateAction } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
-import SearchBarButton from '../Button/SearchBarButton';
 import WordFilter from '../Filter/WordFilter';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 import HeadText from '../Text/HeadText';
+import SearchBarInput from '../Input/SearchBarInput';
 
-function SearchBarContainer() {
+function SearchBarContainer({
+  keyword,
+  setKeyword,
+}: {
+  keyword: string;
+  setKeyword: Dispatch<SetStateAction<string>>;
+}) {
   return (
     <ContainerStyled>
-      <SearchBarButton>운동 방법을 검색해보세요.</SearchBarButton>
-      <Blank height={getHeightPixel(25)} />
+      <SearchBarInput keyword={keyword} onChangeText={setKeyword} placeHolder={'운동을 검색해보세요'} />
+      <Blank height={getHeightPixel(15)} />
+      {/* <Blank height={getHeightPixel(25)} />
       <TitleStyled>최근 검색어</TitleStyled>
       <InnerContainerStyled>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -38,13 +46,14 @@ function SearchBarContainer() {
           <Blank width={getWidthPixel(13)} />
         </ScrollView>
       </InnerContainerStyled>
-      <Blank height={getHeightPixel(25)} />
+      <Blank height={getHeightPixel(25)} /> */}
     </ContainerStyled>
   );
 }
 
 const ContainerStyled = styled.View`
   margin-top: ${getHeightPixel(16)};
+  align-items: center;
 `;
 
 const InnerContainerStyled = styled.View`
@@ -54,6 +63,7 @@ const InnerContainerStyled = styled.View`
 const TitleStyled = styled(HeadText)`
   margin-left: ${getWidthPixel(25)};
   margin-bottom: ${getHeightPixel(15)};
+  width: 100%;
 `;
 
 export default SearchBarContainer;

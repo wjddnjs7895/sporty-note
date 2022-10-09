@@ -4,14 +4,14 @@ import { View, TouchableOpacity } from 'react-native';
 
 import { getHeightPixel, getHeightPixelByWidth, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 import SubHeadText from '../Text/SubHeadText';
-import { MemoDataProps, MemoStyle, ImageStyle } from '../../constants/types';
+import { MemoData, MemoStyle, ImageStyle } from '../../constants/types';
 
 import { COLOR__STRING, palette } from '../../constants/palette';
 import Show_All_Icon from '../../assets/icons/button/show_all.svg';
 import MemoContent from './MemoContent';
 import Blank from '../Blank';
 
-function Memo(memo: MemoDataProps[]) {
+function Memo(memo: MemoData[]) {
   const [isSelected, setSelected] = useState(false);
   return (
     <ContainerStyled>
