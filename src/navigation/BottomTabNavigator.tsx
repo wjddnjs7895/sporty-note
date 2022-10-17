@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
@@ -24,11 +24,29 @@ import User_Icon from '../assets/icons/gnb/user.svg';
 import User_Selected_Icon from '../assets/icons/gnb/user_selected.svg';
 import { useRecoilValue } from 'recoil';
 import { appState } from '../store/atoms/appAtom';
+import { Alert, BackHandler } from 'react-native';
 
 const BottomTab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   const appInfo = useRecoilValue(appState);
+  const backAction = () => {
+    Alert.alert('', '종료하시겠습니까?', [
+      {
+        text: '취소',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      { text: '종료', onPress: () => BackHandler.exitApp() },
+    ]);
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => BackHandler.removeEventListener('hardwareBackPress', backAction);
+  }, []);
   return (
     <BottomTab.Navigator
       initialRouteName="MainScreen"

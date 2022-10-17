@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -11,20 +11,27 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AddMemoButton from '../components/Button/AddMemoButton';
 import MemoInputModal from '../components/Modal/MemoInputModal';
 import NoteSelectBar from '../components/Button/NoteSelectBar';
-import { useRecoilValue } from 'recoil';
-import { getGeneralNoteSelector, getNoteSelector } from '../store/selectors/noteSelector';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { getGeneralNoteSelector } from '../store/selectors/noteSelector';
 import { userState } from '../store/atoms/userAtom';
+import { useIsFocused } from '@react-navigation/native';
+import { setNoteAPI } from '../utils/api';
+import { noteRefreshState } from '../store/atoms/noteAtom';
+import { NOTE__DATA } from '../constants';
 
 const NoteScreen = ({ navigation, route }: NativeStackScreenProps<BottomTabNavigationParam, 'NoteScreen'>) => {
   const [screenIdx, setIdx] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(false);
   const userData = useRecoilValue(userState);
+  const isFocused = useIsFocused();
+  const [refresh, setRefresh] = useRecoilState(noteRefreshState);
   const generalNoteData = useRecoilValue(
     getGeneralNoteSelector({ machineIdx: route.params.machineIdx || 0, accessToken: userData.accessToken })
   );
-  const noteData = useRecoilValue(
-    getNoteSelector({ machineIdx: route.params.machineIdx || 0, accessToken: userData.accessToken })
-  );
+  const [noteData, setNoteData] = useState(NOTE__DATA);
+  useEffect(() => {
+    setNoteAPI({ machineIdx: route.params.machineIdx || 0, accessToken: userData.accessToken, setNote: setNoteData });
+  }, [route.params.machineIdx, userData.accessToken, isFocused, visible, refresh, setRefresh]);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <ScreenStyled>

@@ -12,3 +12,10 @@ export const dateState = atom<dateProps>({
 export const routineState = atom<string[]>({
   key: 'routineState',
 });
+
+export const routineRefreshState = atom<{ refresh: boolean }>({
+  key: 'routineRefreshState',
+  default: {
+    refresh: false,
+  },
+});

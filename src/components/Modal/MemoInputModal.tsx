@@ -14,12 +14,14 @@ import { BodyKeyTypes, BODY__LIST } from '../../constants/body';
 import { modifyMemoSelector } from '../../store/selectors/noteSelector';
 import { postMemoAPI } from '../../utils/api';
 import { userState } from '../../store/atoms/userAtom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { noteRefreshState } from '../../store/atoms/noteAtom';
 
 function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
   const [body, setBody] = useState<BodyKeyTypes>(note.body || 'CHEST');
   const [memoText, setText] = useState<string>('');
   const userData = useRecoilValue(userState);
+  const [refresh, setRefresh] = useRecoilState(noteRefreshState);
   return (
     <KeyboardAvoidingView behavior={'position'}>
       <Modal visible={isVisible} animationType={'slide'}>
@@ -44,6 +46,8 @@ function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
                     x_location: 0,
                     y_location: 0,
                     accessToken: userData.accessToken,
+                    refresh: refresh,
+                    setRefresh: setRefresh,
                   });
                 } else {
                   modifyMemoSelector({

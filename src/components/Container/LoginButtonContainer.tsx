@@ -11,7 +11,7 @@ function LoginButtonContainer() {
   const navigation = useNavigation<NavigationProps['navigation']>();
   return (
     <ContainerStyled>
-      <GoogleLoginButton />
+      <GoogleLoginButton onPress={() => navigation.navigate('GoogleLoginWebScreen')} />
       <Blank height={getHeightPixel(15)} />
       <KakaoLoginButton onPress={() => navigation.navigate('KakaoLoginWebScreen')} />
     </ContainerStyled>

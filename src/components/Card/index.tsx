@@ -12,7 +12,9 @@ function Card({ children, onPress, ...rest }: CardProps) {
   return (
     <CardStyled {...rest} onPress={onPress}>
       <ImageStyled source={{ uri: RESOURCE_PREFIX + rest.imageUrl1 }} />
-      <SubHeadText fontNumber={4}>{rest.krMachineName}</SubHeadText>
+      <SubHeadText fontNumber={4} textAlign="center">
+        {rest.krMachineName}
+      </SubHeadText>
       {children}
     </CardStyled>
   );
@@ -26,7 +28,7 @@ const CardStyled = styled.TouchableOpacity<CardStyle>`
     width = getWidthPixel(150),
     height = getHeightPixelByWidth(150, 150),
     isSelected = false,
-    backgroundColor = 'gray_06',
+    backgroundColor = palette.gray_06,
     marginTop = '0px',
     marginBottom = '0px',
     marginLeft = '0px',
@@ -39,7 +41,7 @@ const CardStyled = styled.TouchableOpacity<CardStyle>`
     margin-bottom: ${marginBottom};
     margin-left: ${marginLeft};
     margin-right: ${marginRight};
-    background-color: ${isSelected ? '#0000004d' : palette[backgroundColor]};
+    background-color: ${isSelected ? palette.lime_02 : backgroundColor};
     border: ${isSelected ? '2px' : '0px'} solid ${isSelected ? palette.lime_02 : null};
     ${hasShadow
       ? Platform.select({

@@ -1,26 +1,43 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { ScrollView } from 'react-native';
 import styled, { css } from 'styled-components/native';
-import { ContainerProps, ContainerStyle } from '../../constants/types';
+import { ContainerStyle } from '../../constants/types';
 
 import Card from '../Card';
-import { getWidthPixel, getHeightPixel } from '../../utils/responsive';
+import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
+import { palette } from '../../constants/palette';
+import { SetStateAction } from 'react';
 
-function MainCardListContainer({ ...rest }: ContainerProps) {
+function MainCardListContainer({
+  memoList,
+  selectedIdx,
+  setSelectedIdx,
+}: {
+  memoList: any[];
+  selectedIdx: number;
+  setSelectedIdx: Dispatch<SetStateAction<number>>;
+}) {
   return (
-    <ContainerStyled height={rest.height}>
+    <ContainerStyled height={getWidthPixel(150)}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <Card
-          krMachineName="벤치프레스"
-          engMachineName="benchpress"
-          isSelected={false}
-          machineIdx={1}
-          url="url"
-          userFavoriteIdx={0}
-          targetArea="CHEST"
-          marginLeft={getWidthPixel(5)}
-          marginRight={getWidthPixel(5)}
-        />
+        {memoList.map((memo, idx) => {
+          return (
+            <Card
+              key={memo.machineDto.machineIdx}
+              krMachineName={memo.machineDto.krMachineName}
+              engMachineName={memo.machineDto.engMachineName}
+              isSelected={idx === selectedIdx}
+              machineIdx={memo.machineDto.machineIdx}
+              imageUrl1={memo.machineDto.imageUrl1}
+              userFavoriteIdx={memo.machineDto.userFavoriteIdx}
+              targetArea={memo.machineDto.targetArea}
+              marginLeft={getWidthPixel(5)}
+              marginRight={getWidthPixel(5)}
+              backgroundColor={palette.gray_07}
+              onPress={() => setSelectedIdx(idx)}
+            />
+          );
+        })}
       </ScrollView>
     </ContainerStyled>
   );

@@ -16,3 +16,10 @@ export const workoutState = atom<{
     machineIdx: 0,
   },
 });
+
+export const noteRefreshState = atom<{ refresh: boolean }>({
+  key: 'noteRefreshState',
+  default: {
+    refresh: false,
+  },
+});

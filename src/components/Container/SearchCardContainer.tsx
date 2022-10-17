@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { NavigationProps } from '../../constants/navigator';
 import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native';
+import Blank from '../Blank';
 
 function SearchCardContainer({ keyword }: { keyword: string }) {
   const cardList = useRecoilValue(getAllWorkoutSelector);
@@ -42,6 +43,7 @@ function SearchCardContainer({ keyword }: { keyword: string }) {
             );
           }
         })}
+        <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
       </ListStyled>
     </ScrollView>
   );

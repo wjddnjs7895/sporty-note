@@ -5,15 +5,12 @@ import { getPixelToPixel } from '../../utils/responsive';
 import { DotStyle } from '../../constants/types';
 import { palette } from '../../constants/palette';
 
-function DotIndex() {
-  return (
-    <ContainerStyled>
-      <DotStyled isSelected={false} />
-      <DotStyled isSelected={true} />
-      <DotStyled isSelected={false} />
-      <DotStyled isSelected={false} />
-    </ContainerStyled>
-  );
+function DotIndex({ length, selectedIdx }: { length: number; selectedIdx: number }) {
+  let dotArr = [];
+  for (let i = 0; i < length; i++) {
+    dotArr.push(<DotStyled key={'dots' + i} isSelected={i === selectedIdx} />);
+  }
+  return <ContainerStyled>{dotArr}</ContainerStyled>;
 }
 
 const ContainerStyled = styled.View`

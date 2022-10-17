@@ -20,7 +20,7 @@ const SearchBarInput = ({ keyword, onChangeText, ...rest }: InputProps) => {
         value={keyword}
         clearTextOnFocus={true}
       />
-      <RecordImageStyled />
+      {/* <RecordImageStyled /> */}
     </ContainerStyled>
   );
 };
@@ -55,6 +55,7 @@ const SearchBarStyled = styled.TextInput`
   align-items: center;
   justify-content: center;
   width: ${getWidthPixel(381)};
+  height: ${getHeightPixelByWidth(358, 39)};
 `;
 
 export default SearchBarInput;

@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 import TitleText from '../Text/TitleText';
-import { getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
+import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import Button from '../Button';
-import BodyText from '../Text/BodyText';
+//import BodyText from '../Text/BodyText';
 
 function NoteListHeaderContainer() {
   return (
     <ContainerStyled>
       <TitleText>노트 리스트</TitleText>
-      <ButtonStyled
+      {/* <ButtonStyled
         buttonColor={'black'}
         height={getHeightPixel(30)}
         width={getWidthPixel(48)}
@@ -19,7 +19,7 @@ function NoteListHeaderContainer() {
         <BodyText fontNumber={5} fontColor={'white'}>
           추가
         </BodyText>
-      </ButtonStyled>
+      </ButtonStyled> */}
     </ContainerStyled>
   );
 }

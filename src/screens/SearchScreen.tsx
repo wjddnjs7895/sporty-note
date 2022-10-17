@@ -5,6 +5,7 @@ import SearchBarContainer from '../components/Container/SearchBarContainer';
 import SearchCardContainer from '../components/Container/SearchCardContainer';
 
 import { palette } from '../constants/palette';
+import { getHeightPixel } from '../utils/responsive';
 
 const SearchScreen = () => {
   const [keyword, setKeyword] = useState<string>('');
@@ -17,7 +18,7 @@ const SearchScreen = () => {
 };
 
 const ContainerStyled = styled.View`
-  width: 100%;
+  height: ${getHeightPixel(830)};
   background-color: ${palette.white};
 `;
 

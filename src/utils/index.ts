@@ -39,7 +39,20 @@ export const getAsyncData = async (key: string) => {
   }
 };
 
-export function getParseCode(data: string) {
+export function getParseGoogleCode(data: string) {
+  const exp1 = 'code=';
+  const exp2 = '&scope=';
+  var condition1 = data.indexOf(exp1);
+  var condition2 = data.indexOf(exp2);
+  if (condition1 !== -1 && condition2 !== -1) {
+    var request_code = data.substring(condition1 + exp1.length);
+    request_code = request_code.substring(0, condition2);
+    return request_code;
+  }
+  return '';
+}
+
+export function getParseKakaoCode(data: string) {
   const exp = 'code=';
   var condition = data.indexOf(exp);
   if (condition !== -1) {

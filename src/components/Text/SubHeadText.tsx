@@ -10,10 +10,11 @@ function SubHeadText({ children, ...rest }: TextProps) {
 }
 
 const TextStyled = styled.Text<TextStyle>`
-  ${({ fontColor = 'black', fontNumber = 1 }) => css`
+  ${({ fontColor = 'black', fontNumber = 1, textAlign = 'justify' }) => css`
     font-family: ${SubHeadTextInfo[fontNumber].fontFamily};
     font-size: ${getPixelToPixel(SubHeadTextInfo[fontNumber].fontSize)}
     color: ${fontColor};
+    text-align: ${textAlign};
   `}
 `;
 

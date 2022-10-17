@@ -10,6 +10,7 @@ export type BottomTabNavigationParam = {
   UserScreen: undefined;
   LoginScreen: undefined;
   KakaoLoginWebScreen: undefined;
+  GoogleLoginWebScreen: undefined;
   Screen: undefined;
   NoteNavigator: NavigatorScreenParams<NoteNavigationParam>;
   NoteListScreen: undefined;

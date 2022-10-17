@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
 import UserRegisterScreen from '../screens/UserRegisterScreen';
 import KakaoLoginWebScreen from '../screens/KakaoLoginWebScreen';
+import GoogleLoginWebScreen from '../screens/GoogleLoginWebScreen';
 
 const LoginStack = createNativeStackNavigator();
 
@@ -13,6 +14,11 @@ export default function LoginNavigator() {
       <LoginStack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
       <LoginStack.Screen name="UserRegisterScreen" component={UserRegisterScreen} options={{ headerShown: false }} />
       <LoginStack.Screen name="KakaoLoginWebScreen" component={KakaoLoginWebScreen} options={{ headerShown: false }} />
+      <LoginStack.Screen
+        name="GoogleLoginWebScreen"
+        component={GoogleLoginWebScreen}
+        options={{ headerShown: false }}
+      />
     </LoginStack.Navigator>
   );
 }

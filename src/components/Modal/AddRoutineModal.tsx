@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, ScrollView } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
 import { palette } from '../../constants/palette';
 import { ModalProps } from '../../constants/types';
@@ -16,6 +16,7 @@ import RoutineCard from '../Card/RoutineCard';
 import AddRoutineHeaderContainer from '../Container/AddRoutineHeaderContainer';
 import SubHeadText from '../Text/SubHeadText';
 import SearchBarInput from '../Input/SearchBarInput';
+import { routineRefreshState } from '../../store/atoms/routineAtom';
 
 function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
   const cardList = useRecoilValue(getAllWorkoutSelector);
@@ -24,7 +25,7 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
   const [routineName, setName] = useState<string>('');
   const [keyword, setKeyword] = useState<string>('');
   const regex = new RegExp(keyword + '.*');
-
+  const [refresh, setRefresh] = useRecoilState(routineRefreshState);
   return (
     <Modal visible={isVisible} animationType={'slide'} transparent={false}>
       <Background>
@@ -36,6 +37,8 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
               accessToken: userData.accessToken,
               selectedList: selectedList,
               routineName: routineName,
+              setRefresh: setRefresh,
+              refresh: refresh,
             });
             setSelectedList([]);
           }}

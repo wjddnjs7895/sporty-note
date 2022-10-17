@@ -88,17 +88,3 @@ export const modifyMemoSelector = selectorFamily<
       return data;
     },
 });
-
-export const deleteMemoSelector = selectorFamily<number, { note_node_idx: number }>({
-  key: 'memo/delete',
-  get:
-    ({ note_node_idx }) =>
-    async () => {
-      const { data } = await axios.delete(`${BASE__URL}nodes`, {
-        params: {
-          note_node_idx: note_node_idx,
-        },
-      });
-      return data;
-    },
-});

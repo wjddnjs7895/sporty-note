@@ -1,10 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import Modal from 'react-native-modal';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components/native';
 
 import { DeleteModalProps, ModalStyle } from '../../constants/types';
-import { deleteMemoSelector } from '../../store/selectors/noteSelector';
+import { noteRefreshState } from '../../store/atoms/noteAtom';
+import { userState } from '../../store/atoms/userAtom';
+import { deleteMemoAPI } from '../../utils/api';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 import SubHeadText from '../Text/SubHeadText';
@@ -18,6 +21,8 @@ function ConfirmModal({
   setVisible,
   nodeIdx,
 }: DeleteModalProps) {
+  const userData = useRecoilValue(userState);
+  const [refresh, setRefresh] = useRecoilState(noteRefreshState);
   return (
     <Modal
       isVisible={isVisible}
@@ -36,7 +41,8 @@ function ConfirmModal({
         <InnerContainerStyled>
           <ButtonStyled
             onPress={() => {
-              deleteMemoSelector({ note_node_idx: nodeIdx });
+              setRefresh({ refresh: !refresh });
+              deleteMemoAPI({ note_node_idx: nodeIdx, accessToken: userData.accessToken });
               if (setVisible !== undefined) {
                 setVisible(false);
               }

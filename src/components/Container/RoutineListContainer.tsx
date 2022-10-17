@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
+import { routineRefreshState } from '../../store/atoms/routineAtom';
 import { userState } from '../../store/atoms/userAtom';
 import { getRoutineAPI } from '../../utils/api';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
@@ -16,9 +17,10 @@ function RoutineListContainer() {
   const [isVisible, setVisible] = useState<boolean>(false);
   const userData = useRecoilValue(userState);
   const [routineList, setList] = useState<string[]>([]);
+  const [refresh, setRefresh] = useRecoilState(routineRefreshState);
   useEffect(() => {
     getRoutineAPI({ accessToken: userData.accessToken, setList: setList });
-  }, [isVisible, userData.accessToken]);
+  }, [isVisible, userData.accessToken, refresh, setRefresh]);
   return (
     <ContainerStyled>
       <AddRoutineModal isVisible={isVisible} setVisible={setVisible} />

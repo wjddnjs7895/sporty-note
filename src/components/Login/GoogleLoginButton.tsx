@@ -4,10 +4,11 @@ import styled from 'styled-components/native';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 
 import Google_Logo_Icon from '../../assets/icons/login/google_logo.svg';
+import { ButtonProps } from '../../constants/types';
 
-const GoogleLoginButton = () => {
+const GoogleLoginButton = ({ onPress }: ButtonProps) => {
   return (
-    <ContainerStyled>
+    <ContainerStyled onPress={onPress}>
       <LogoStyled />
       <InnerContainerStyled>
         <TextStyled>Google 계정으로 로그인</TextStyled>

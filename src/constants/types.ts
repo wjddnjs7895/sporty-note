@@ -12,6 +12,7 @@ export interface TextStyle {
   fontColor?: PaletteKeyTypes;
   fontWeight?: string;
   width?: string;
+  textAlign?: string;
 }
 
 export interface TextProps extends TextStyle {

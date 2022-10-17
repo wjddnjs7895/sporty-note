@@ -26,3 +26,25 @@ export const getKakaoUserSelector = selectorFamily<userProps, loginProps>({
       return data;
     },
 });
+
+export const getGoogleUserSelector = selectorFamily<userProps, loginProps>({
+  key: 'google_user/get',
+  get:
+    ({ code }: loginProps) =>
+    async () => {
+      if (code === '') {
+        return {
+          success: false,
+          accessToken: '',
+        };
+      }
+      const { data } = await axios.get(`${BASE__URL}auth/google/callback`, {
+        params: {
+          code: code,
+        },
+      });
+
+      AsyncStorage.setItem('userData', JSON.stringify({ accessToken: data.accessToken }));
+      return data;
+    },
+});
