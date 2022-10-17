@@ -45,7 +45,7 @@ const NoteScreen = ({ navigation, route }: NativeStackScreenProps<BottomTabNavig
         />
         <NoteSelectBar screenIdx={screenIdx} setIdx={setIdx} />
         <Blank height={getHeightPixel(40)} />
-        {screenIdx === 3 ? <Note {...noteData} /> : <Note {...generalNoteData} />}
+        {screenIdx === 3 ? <Note isGeneral={false} {...noteData} /> : <Note isGeneral={true} {...generalNoteData} />}
         {screenIdx === 3 ? (
           <InnerContainerStyled>
             <Blank height={getHeightPixel(30)} />

@@ -1,9 +1,11 @@
-import React from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
 import { NavigationProps } from '../../constants/navigator';
 import { userState } from '../../store/atoms/userAtom';
 import { getNoteListSelector } from '../../store/selectors/noteSelector';
+import { getNoteListAPI } from '../../utils/api/note';
 import { getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 
@@ -11,7 +13,11 @@ import NoteCard from '../Card/NoteCard';
 
 function NoteCardContainer({ navigation }: NavigationProps) {
   const userData = useRecoilValue(userState);
-  const noteList = useRecoilValue(getNoteListSelector({ ...userData }));
+  const [noteList, setList] = useState(useRecoilValue(getNoteListSelector({ ...userData })));
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getNoteListAPI({ accessToken: userData.accessToken, setList: setList });
+  }, [isFocused, userData.accessToken]);
   return (
     <ListStyled>
       {noteList.map(note => {

@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import styled from 'styled-components/native';
+import RNExitApp from 'react-native-exit-app';
 
 import { getPixelToNumber, getWidthPixel } from '../utils/responsive';
 import MyRoutineScreen from '../screens/MyRoutineScreen';
-import SearchScreen from '../screens/SearchScreen';
 import UserScreen from '../screens/UserScreen';
 import MainScreen from '../screens/MainScreen';
 import NoteNavigator from './NoteNavigator';
@@ -25,6 +25,7 @@ import User_Selected_Icon from '../assets/icons/gnb/user_selected.svg';
 import { useRecoilValue } from 'recoil';
 import { appState } from '../store/atoms/appAtom';
 import { Alert, BackHandler } from 'react-native';
+import SearchNavigator from './SearchNavigator';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -37,7 +38,7 @@ export default function BottomTabNavigator() {
         onPress: () => null,
         style: 'cancel',
       },
-      { text: '종료', onPress: () => BackHandler.exitApp() },
+      { text: '종료', onPress: () => RNExitApp.exitApp() },
     ]);
     return true;
   };
@@ -95,10 +96,11 @@ export default function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="SearchScreen"
-        component={SearchScreen}
+        name="SearchNavigator"
+        component={SearchNavigator}
         options={{
           title: NAVIGATION__TEXT[3][appInfo.language],
+          headerShown: false,
           tabBarIcon: ({ focused }) => <IconStyled>{focused ? <Search_Selected_Icon /> : <Search_Icon />}</IconStyled>,
         }}
       />

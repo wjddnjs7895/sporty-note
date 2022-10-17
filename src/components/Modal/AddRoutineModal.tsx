@@ -17,6 +17,7 @@ import AddRoutineHeaderContainer from '../Container/AddRoutineHeaderContainer';
 import SubHeadText from '../Text/SubHeadText';
 import SearchBarInput from '../Input/SearchBarInput';
 import { routineRefreshState } from '../../store/atoms/routineAtom';
+import AlertModal from './AlertModal';
 
 function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
   const cardList = useRecoilValue(getAllWorkoutSelector);
@@ -26,6 +27,7 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
   const [keyword, setKeyword] = useState<string>('');
   const regex = new RegExp(keyword + '.*');
   const [refresh, setRefresh] = useRecoilState(routineRefreshState);
+  const [alertVisible, setAlertVisible] = useState(false);
   return (
     <Modal visible={isVisible} animationType={'slide'} transparent={false}>
       <Background>
@@ -33,14 +35,19 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
           goBack={() => setVisible(false)}
           setTitle={setName}
           submit={() => {
-            postRoutineAPI({
-              accessToken: userData.accessToken,
-              selectedList: selectedList,
-              routineName: routineName,
-              setRefresh: setRefresh,
-              refresh: refresh,
-            });
-            setSelectedList([]);
+            if (routineName) {
+              postRoutineAPI({
+                accessToken: userData.accessToken,
+                selectedList: selectedList,
+                routineName: routineName,
+                setRefresh: setRefresh,
+                refresh: refresh,
+              });
+              setSelectedList([]);
+              setVisible(false);
+            } else {
+              setAlertVisible(true);
+            }
           }}
         />
         <RoutineContainer>
@@ -93,6 +100,9 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
             <Blank height={getHeightPixel(80)} />
           </ScrollView>
         </ContainerStyled>
+        {alertVisible ? (
+          <AlertModal questionText={'제목을 입력해주세요'} isVisible={alertVisible} setVisible={setAlertVisible} />
+        ) : null}
       </Background>
     </Modal>
   );

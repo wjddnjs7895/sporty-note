@@ -13,6 +13,7 @@ export type BottomTabNavigationParam = {
   GoogleLoginWebScreen: undefined;
   Screen: undefined;
   NoteNavigator: NavigatorScreenParams<NoteNavigationParam>;
+  SearchNavigator: NavigatorScreenParams<SearchNavigationParam>;
   NoteListScreen: undefined;
   NoteScreen: NoteNavigatorProps;
 };
@@ -22,13 +23,24 @@ export type NoteNavigationParam = {
   NoteScreen: NoteNavigatorProps;
 };
 
+export type SearchNavigationParam = {
+  SearchScreen: undefined;
+  NoteScreen: NoteNavigatorProps;
+};
+
 export type NavigationProps = {
   navigation: CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
-    NativeStackNavigationProp<NoteNavigationParam>
+    CompositeNavigationProp<
+      BottomTabNavigationProp<BottomTabNavigationParam, 'SearchNavigator'>,
+      NativeStackNavigationProp<NoteNavigationParam>
+    >
   >;
   route?: CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
-    NativeStackNavigationProp<NoteNavigationParam>
+    CompositeNavigationProp<
+      BottomTabNavigationProp<BottomTabNavigationParam, 'SearchNavigator'>,
+      NativeStackNavigationProp<NoteNavigationParam>
+    >
   >;
 };

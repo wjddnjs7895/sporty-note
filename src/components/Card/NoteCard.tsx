@@ -10,8 +10,8 @@ import SubHeadText from '../Text/SubHeadText';
 import BodyText from '../Text/BodyText';
 import FavoriteButton from '../Button/FavoriteButton';
 
-import { WORKOUT__INFO } from '../../constants/workout';
 import Blank from '../Blank';
+import { RESOURCE_PREFIX } from '../../constants';
 
 function NoteCard({ children, onPress, ...rest }: CardProps) {
   return (
@@ -28,8 +28,8 @@ function NoteCard({ children, onPress, ...rest }: CardProps) {
         </FavoriteStyled>
         <SubHeadText fontNumber={3}>{rest.krMachineName}</SubHeadText>
         <Blank height={getHeightPixel(5)} />
-        <BodyText fontNumber={7}>3개 메모</BodyText>
-        <ImageStyled source={WORKOUT__INFO[rest.machineIdx].url} />
+        {/* <BodyText fontNumber={7}>3개 메모</BodyText> */}
+        <ImageStyled source={{ uri: RESOURCE_PREFIX + rest.imageUrl1 }} />
       </CardStyled>
       <BoxStyled />
     </NoteCardStyled>

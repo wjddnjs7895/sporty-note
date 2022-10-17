@@ -40,7 +40,9 @@ function MainNoteContainer() {
           <Blank height={'25px'} />
           <MainCardListContainer memoList={memoList} setSelectedIdx={setSelectedIdx} selectedIdx={selectedIdx} />
           <DotIndex length={memoList.length} selectedIdx={selectedIdx} />
-          {memoList[selectedIdx] !== undefined ? <MemoList {...memoList[selectedIdx].nodeDtos} /> : null}
+          {memoList[selectedIdx] !== undefined ? (
+            <MemoList isGeneral={true} memoList={memoList[selectedIdx].nodeDtos} />
+          ) : null}
         </ContainerStyled>
       );
     case 'loading':

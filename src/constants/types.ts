@@ -136,6 +136,7 @@ export interface MemoInputModalProps extends ModalProps, NoteProps {
   visible?: boolean;
   text?: string;
   inputType?: number;
+  setInputVisible?: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface EditModalProps extends ModalProps, MemoData {
@@ -179,6 +180,7 @@ export interface NoteData {
   nodeDtos: {
     [key: BodyKeyTypes]: MemoData[];
   };
+  isGeneral?: boolean;
 }
 
 export interface MemoData {

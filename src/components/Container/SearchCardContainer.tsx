@@ -24,7 +24,7 @@ function SearchCardContainer({ keyword }: { keyword: string }) {
                 key={card.machineIdx}
                 {...card}
                 onPress={() =>
-                  navigation.navigate('NoteNavigator', {
+                  navigation.navigate('SearchNavigator', {
                     screen: 'NoteScreen',
                     params: {
                       machineIdx: card.machineIdx,

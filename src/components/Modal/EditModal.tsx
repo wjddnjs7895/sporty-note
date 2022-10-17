@@ -4,22 +4,18 @@ import Modal from 'react-native-modal';
 import styled, { css } from 'styled-components/native';
 
 import { getWidthPixel, getHeightPixel, getPixelToNumber } from '../../utils/responsive';
-//import { modifyMemoSelector } from '../../store/selectors/noteSelector';
 
 import { EditModalProps, ModalStyle } from '../../constants/types';
 import { EDIT__MODAL__TEXT } from '../../constants/text';
 import BodyText from '../Text/BodyText';
-//import { palette } from '../../constants/palette';
+import { palette } from '../../constants/palette';
 import ConfirmModal from './ConfirmModal';
 import { CONFIRM__MODAL__TEXT } from '../../constants/text';
 import MemoInputModal from './MemoInputModal';
-//import { useRecoilValue } from 'recoil';
-//import { userState } from '../../store/atoms/userAtom';
 
 function EditModal({ location, isVisible, setVisible, ...note }: EditModalProps) {
   const [confirmVisible, setConfirmVisible] = useState<boolean>(false);
   const [inputVisible, setInputVisible] = useState<boolean>(false);
-  //const userData = useRecoilValue(userState);
   return (
     <>
       <Modal
@@ -34,10 +30,10 @@ function EditModal({ location, isVisible, setVisible, ...note }: EditModalProps)
         animationOutTiming={1}
       >
         <ContainerStyled location={location}>
-          {/* <InnerButtonStyled onPress={() => modifyMemoSelector({ accessToken: userData.accessToken, ...note })}>
+          <InnerButtonStyled onPress={() => setInputVisible(true)}>
             <BodyText fontNumber={4}>{EDIT__MODAL__TEXT[0][0]}</BodyText>
-          </InnerButtonStyled> 
-          <DividerStyled />*/}
+          </InnerButtonStyled>
+          <DividerStyled />
           <InnerButtonStyled
             onPress={() => {
               setConfirmVisible(true);
@@ -58,7 +54,7 @@ function EditModal({ location, isVisible, setVisible, ...note }: EditModalProps)
         ) : null}
         {inputVisible ? (
           <MemoInputModal
-            setVisible={() => setInputVisible(false)}
+            setVisible={setVisible}
             goBack={() => setInputVisible(false)}
             inputType={1}
             isVisible={inputVisible}
@@ -105,10 +101,10 @@ const InnerButtonStyled = styled.TouchableOpacity`
   text-align: center;
 `;
 
-// const DividerStyled = styled.View`
-//   border-bottom-color: ${palette.gray_06};
-//   border-bottom-width: 1px;
-//   width: ${getWidthPixel(71)};
-// `;
+const DividerStyled = styled.View`
+  border-bottom-color: ${palette.gray_06};
+  border-bottom-width: 1px;
+  width: ${getWidthPixel(71)};
+`;
 
 export default EditModal;

@@ -11,13 +11,13 @@ import ColorTag from '../Note/ColorTag';
 import BodyFilter from '../Filter/BodyFilter';
 import Blank from '../Blank';
 import { BodyKeyTypes, BODY__LIST } from '../../constants/body';
-import { modifyMemoSelector } from '../../store/selectors/noteSelector';
 import { postMemoAPI } from '../../utils/api';
 import { userState } from '../../store/atoms/userAtom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { noteRefreshState } from '../../store/atoms/noteAtom';
+import { postModifyMemoAPI } from '../../utils/api/note';
 
-function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
+function MemoInputModal({ goBack, isVisible, setVisible, ...note }: MemoInputModalProps) {
   const [body, setBody] = useState<BodyKeyTypes>(note.body || 'CHEST');
   const [memoText, setText] = useState<string>('');
   const userData = useRecoilValue(userState);
@@ -35,6 +35,9 @@ function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
                 if (goBack !== undefined) {
                   goBack();
                 }
+                if (setVisible) {
+                  setVisible(false);
+                }
                 if (note.inputType === 0) {
                   postMemoAPI({
                     color: BODY__LIST[body].color,
@@ -50,13 +53,15 @@ function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
                     setRefresh: setRefresh,
                   });
                 } else {
-                  modifyMemoSelector({
+                  postModifyMemoAPI({
                     nodeIdx: note.nodeIdx || 0,
                     type: { krName: BODY__LIST[body].krName, engName: BODY__LIST[body].engName },
                     color: BODY__LIST[body].color,
                     text: memoText,
-                    pictureUrl: note.url || '',
+                    pictureUrl: note.imageUrl1 || '',
                     accessToken: userData.accessToken,
+                    refresh: refresh,
+                    setRefresh: setRefresh,
                   });
                 }
               }}
@@ -71,7 +76,8 @@ function MemoInputModal({ goBack, isVisible, ...note }: MemoInputModalProps) {
             </HeaderContainerStyled>
             <DividerStyled />
             <TextInputStyled
-              placeholder={note.text || '오늘의 운동을 노트하세요!'}
+              placeholder={'오늘의 운동을 노트하세요!'}
+              defaultValue={note.text}
               placeholderTextColor={palette.gray_03}
               multiline={true}
               onChangeText={text => setText(text)}

@@ -8,13 +8,13 @@ import { getMemoTitle } from '../../utils';
 import { getHeightPixelByWidth, getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
 import Memo from './Memo';
 
-function MemoList({ ...memoList }: { [key: BodyKeyTypes]: MemoData[] }) {
+function MemoList({ isGeneral, memoList }: { isGeneral: boolean; memoList: { [key: BodyKeyTypes]: MemoData[] } }) {
   const MemoBodyList = getMemoTitle(memoList);
   return (
     <ContainerStyled>
       {MemoBodyList.map((memoTitle, index) => (
         <View key={memoTitle.body}>
-          <Memo {...memoList[memoTitle.index]} />
+          <Memo memo={memoList[memoTitle.index]} isGeneral={isGeneral} />
           {index + 1 !== MemoBodyList.length ? (
             <InnerContainerStyled>
               <DividerStyled />

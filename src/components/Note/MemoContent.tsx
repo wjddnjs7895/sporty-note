@@ -10,7 +10,7 @@ import { MemoData } from '../../constants/types';
 import { View } from 'react-native';
 import EditModalButton from '../Button/EditModalButton';
 
-function MemoContent(memoContent: MemoData[]) {
+function MemoContent({ isGeneral, memoContent }: { isGeneral: boolean; memoContent: MemoData[] }) {
   return (
     <ContainerStyled>
       {Object.values(memoContent).map((memo, index) => (
@@ -20,15 +20,17 @@ function MemoContent(memoContent: MemoData[]) {
               <ImageStyled />
             </ImageCoverStyled>
             <MemoTextStyled>{memo.text}</MemoTextStyled>
-            <EditModalButton
-              nodeIdx={memo.nodeIdx}
-              color={memo.color}
-              pictureUrl={memo.pictureUrl}
-              text={memo.text}
-              type={memo.type}
-              body={memo.body}
-              machineIdx={memo.machineIdx}
-            />
+            {isGeneral ? null : (
+              <EditModalButton
+                nodeIdx={memo.nodeIdx}
+                color={memo.color}
+                pictureUrl={memo.pictureUrl}
+                text={memo.text}
+                type={memo.type}
+                body={memo.body}
+                machineIdx={memo.machineIdx}
+              />
+            )}
           </InnerContainerStyled>
           {index + 1 !== Object.values(memoContent).length ? <DividerStyled /> : null}
         </View>

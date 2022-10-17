@@ -11,7 +11,7 @@ import Show_All_Icon from '../../assets/icons/button/show_all.svg';
 import MemoContent from './MemoContent';
 import Blank from '../Blank';
 
-function Memo(memo: MemoData[]) {
+function Memo({ isGeneral, memo }: { isGeneral: boolean; memo: MemoData[] }) {
   const [isSelected, setSelected] = useState(false);
   return (
     <ContainerStyled>
@@ -23,7 +23,7 @@ function Memo(memo: MemoData[]) {
       {isSelected ? (
         <View>
           <Blank height={getHeightPixel(30)} />
-          <MemoContent {...memo} />
+          <MemoContent memoContent={memo} isGeneral={isGeneral} />
           <Blank height={getHeightPixel(10)} />
         </View>
       ) : null}

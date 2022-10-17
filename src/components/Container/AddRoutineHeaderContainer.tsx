@@ -15,7 +15,7 @@ function AddRoutineHeaderContainer({ goBack, submit, setTitle }: HeaderProps) {
         <BackButton onPress={goBack} />
       </BackButtonStyled>
       <TextInputStyled
-        placeholder=" Title"
+        placeholder="루틴 명을 입력해주세요"
         onChangeText={title => {
           if (setTitle) {
             setTitle(title);
@@ -33,7 +33,6 @@ function AddRoutineHeaderContainer({ goBack, submit, setTitle }: HeaderProps) {
             if (submit) {
               submit();
             }
-            goBack();
           }}
         >
           <TextStyled fontNumber={5} fontColor="white">
@@ -76,8 +75,8 @@ const TextInputStyled = styled.TextInput.attrs({
   placeholderTextColor: '#ededed',
   selectionColor: palette.lime_01,
 })`
-  font-size: ${getPixelToPixel(20)};
-  font-family: 'Pretendard-ExtraBold';
+  font-size: ${getPixelToPixel(18)};
+  font-family: 'Pretendard-Bold';
   width: ${getWidthPixel(280)};
 `;
 
