@@ -34,7 +34,7 @@ function MainNoteContainer() {
       return (
         <ContainerStyled>
           <HeaderStyled>
-            <SelectBar isSelected={true}>운동정보</SelectBar>
+            <SelectBar isSelected={true}>운동 정보</SelectBar>
             <SelectBar>나만의 운동</SelectBar>
           </HeaderStyled>
           <Blank height={'25px'} />

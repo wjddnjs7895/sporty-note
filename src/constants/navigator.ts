@@ -4,7 +4,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NoteNavigatorProps } from './types';
 
 export type BottomTabNavigationParam = {
-  MyRoutineScreen: undefined;
+  CalendarScreen: undefined;
   MainScreen: undefined;
   SearchScreen: undefined;
   UserScreen: undefined;

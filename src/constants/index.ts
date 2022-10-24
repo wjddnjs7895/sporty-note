@@ -5,10 +5,10 @@ export const MAIN_BUTTON_HEIGHT = getHeightPixelByWidth(211, 103);
 export const BASE__URL = 'https://api.sportynote.com/';
 
 export const KAKAO__LOGIN__URL =
-  'https://kauth.kakao.com/oauth/authorize?client_id=c885ecfe893222b57506c1f5098018f0&redirect_uri=https://api.sportynote.com/auth/code&response_type=code';
+  'https://kauth.kakao.com/oauth/authorize?client_id=c885ecfe893222b57506c1f5098018f0&redirect_uri=https://api.sportynote.com/auth/code&response_type=code&response_mode=form_post';
 
 export const GOOGLE__LOGIN__URL =
-  'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=889016095733-q0pbdimh0k14gcrq6dfoi266mchknu7c.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fapi.sportynote.com%2Fauth%2Fcode&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&flowName=GeneralOAuthFlow';
+  'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=889016095733-q0pbdimh0k14gcrq6dfoi266mchknu7c.apps.googleusercontent.com&redirect_uri=https://api.sportynote.com/auth/code&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&flowName=GeneralOAuthFlow&include_granted_scopes=true';
 
 export const INJECTED__JAVASCRIPT = 'window.ReactNativeWebView.postMessage("this is message from web");';
 

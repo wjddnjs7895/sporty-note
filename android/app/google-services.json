@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "646699485572",
+    "project_id": "sporty-note-data",
+    "storage_bucket": "sporty-note-data.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:646699485572:android:da6ec8cad0b758d23275d1",
+        "android_client_info": {
+          "package_name": "com.sporty_note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "646699485572-t1d8lsiag017fk551oscqvmkl833lkqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj4v-yhdv_X8kr78qswAd1aJ1b5N5zBWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "646699485572-t1d8lsiag017fk551oscqvmkl833lkqe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

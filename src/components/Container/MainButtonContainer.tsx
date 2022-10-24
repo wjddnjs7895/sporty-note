@@ -23,14 +23,18 @@ function MainButtonContainer({ navigation }: NavigationProps) {
   return (
     <ContainerStyled>
       <ReadyModal isVisible={visible} setVisible={setVisible} />
-      <SearchBarButton onPress={() => navigation.navigate('SearchScreen')}>운동 방법을 검색해보세요.</SearchBarButton>
+      <SearchBarButton onPress={() => navigation.navigate('SearchScreen')}>운동 기구를 검색해보세요.</SearchBarButton>
       <Blank height="25px" />
       <InnerContainerStyled>
         <Button
           width={getWidthPixel(211)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => navigation.navigate('NoteListScreen')}
+          onPress={() =>
+            navigation.navigate('NoteNavigator', {
+              screen: 'NoteListScreen',
+            })
+          }
         >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>노트 리스트</SubHeadText>
@@ -88,9 +92,9 @@ function MainButtonContainer({ navigation }: NavigationProps) {
         </Button>
       </InnerContainerStyled>
       <MainLongButton onPress={() => setVisible(true)}>
-        <SubHeadText fontNumber={2}>마이 플레이스</SubHeadText>
+        <SubHeadText fontNumber={2}>헬스 게시판</SubHeadText>
         <BodyText fontNumber={5} fontColor={'white'}>
-          내 근처 운동 기구를 찾아보세요!
+          운동 자세를 피드백 받아보세요!
         </BodyText>
       </MainLongButton>
     </ContainerStyled>

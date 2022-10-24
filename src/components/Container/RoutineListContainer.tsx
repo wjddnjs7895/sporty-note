@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
 import { routineRefreshState } from '../../store/atoms/routineAtom';
 import { userState } from '../../store/atoms/userAtom';
@@ -17,13 +17,13 @@ function RoutineListContainer() {
   const [isVisible, setVisible] = useState<boolean>(false);
   const userData = useRecoilValue(userState);
   const [routineList, setList] = useState<string[]>([]);
-  const [refresh, setRefresh] = useRecoilState(routineRefreshState);
+  const refresh = useRecoilValue(routineRefreshState);
   useEffect(() => {
     getRoutineAPI({ accessToken: userData.accessToken, setList: setList });
-  }, [isVisible, userData.accessToken, refresh, setRefresh]);
+  }, [isVisible, userData.accessToken, refresh]);
   return (
     <ContainerStyled>
-      <AddRoutineModal isVisible={isVisible} setVisible={setVisible} />
+      <AddRoutineModal routineList={[]} isVisible={isVisible} setVisible={setVisible} name={''} inputType={0} />
       <InnerContainerStyled>
         <HeaderStyled>
           <SubHeadText fontNumber={1}>오늘의 운동</SubHeadText>

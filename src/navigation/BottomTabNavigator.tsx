@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import RNExitApp from 'react-native-exit-app';
 
 import { getPixelToNumber, getWidthPixel } from '../utils/responsive';
-import MyRoutineScreen from '../screens/MyRoutineScreen';
+import CalendarScreen from '../screens/CalendarScreen';
 import UserScreen from '../screens/UserScreen';
 import MainScreen from '../screens/MainScreen';
 import NoteNavigator from './NoteNavigator';
@@ -69,8 +69,8 @@ export default function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="MyRoutineScreen"
-        component={MyRoutineScreen}
+        name="CalendarScreen"
+        component={CalendarScreen}
         options={{
           title: NAVIGATION__TEXT[0][appInfo.language],
           headerShown: false,

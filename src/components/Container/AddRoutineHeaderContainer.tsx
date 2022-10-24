@@ -8,7 +8,7 @@ import Button from '../Button';
 import BackButton from '../Button/BackButton';
 import BodyText from '../Text/BodyText';
 
-function AddRoutineHeaderContainer({ goBack, submit, setTitle }: HeaderProps) {
+function AddRoutineHeaderContainer({ goBack, submit, setTitle, title }: HeaderProps) {
   return (
     <ContainerStyled>
       <BackButtonStyled>
@@ -16,9 +16,10 @@ function AddRoutineHeaderContainer({ goBack, submit, setTitle }: HeaderProps) {
       </BackButtonStyled>
       <TextInputStyled
         placeholder="루틴 명을 입력해주세요"
-        onChangeText={title => {
+        defaultValue={title}
+        onChangeText={text => {
           if (setTitle) {
-            setTitle(title);
+            setTitle(text);
           }
         }}
       />

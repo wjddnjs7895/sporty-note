@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components/native';
 import { PRIVATE__POLICY__URL, TERMS__URL } from '../../constants';
 import { palette } from '../../constants/palette';
 import { userState } from '../../store/atoms/userAtom';
 import { openLinkingURL } from '../../utils';
-import { getLogoutAPI } from '../../utils/api/user';
+import { deleteUserAPI, getLogoutAPI } from '../../utils/api/user';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
+import FuncModal from '../Modal/FuncModal';
 import SubHeadText from '../Text/SubHeadText';
 
 function SettingsContainer() {
   const [userData, setUserData] = useRecoilState(userState);
+  const [isVisible, setVisible] = useState(false);
   return (
     <ContainerStyled>
       <ButtonStyled onPress={() => openLinkingURL(TERMS__URL)}>
@@ -28,6 +30,28 @@ function SettingsContainer() {
         }}
       >
         <SubHeadText fontNumber={3}>로그아웃</SubHeadText>
+      </ButtonStyled>
+      <DividerStyled />
+      <ButtonStyled onPress={() => setVisible(true)}>
+        <SubHeadText fontNumber={3} fontColor={palette.red}>
+          회원탈퇴
+        </SubHeadText>
+        {isVisible ? (
+          <FuncModal
+            questionText="탈퇴하시겠습니까?"
+            yesText="탈퇴"
+            noText="취소"
+            width={getWidthPixel(352)}
+            height={getHeightPixel(224)}
+            func={() => {
+              deleteUserAPI({ accessToken: userData.accessToken });
+              setUserData({ accessToken: '', success: false });
+              setVisible(false);
+            }}
+            isVisible={isVisible}
+            setVisible={setVisible}
+          />
+        ) : null}
       </ButtonStyled>
     </ContainerStyled>
   );

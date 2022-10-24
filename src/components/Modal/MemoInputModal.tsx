@@ -69,7 +69,7 @@ function MemoInputModal({ goBack, isVisible, setVisible, ...note }: MemoInputMod
             <HeaderContainerStyled>
               <InnerContainerStyled>
                 <LineStyled />
-                <ColorTag tagColor={palette.blue} />
+                <ColorTag tagColor={BODY__LIST[body].color} />
                 <Blank width={getWidthPixel(10)} />
                 <BodyFilter body={body} setBody={setBody} />
               </InnerContainerStyled>

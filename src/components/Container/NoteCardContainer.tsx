@@ -1,5 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
 import { NavigationProps } from '../../constants/navigator';
@@ -19,18 +20,22 @@ function NoteCardContainer({ navigation }: NavigationProps) {
     getNoteListAPI({ accessToken: userData.accessToken, setList: setList });
   }, [isFocused, userData.accessToken]);
   return (
-    <ListStyled>
-      {noteList.map(note => {
-        return (
-          <NoteCard
-            key={note.machineIdx}
-            {...note}
-            onPress={() => navigation.push('NoteScreen', { goBackKey: 'NoteListScreen', ...note })}
-          />
-        );
-      })}
-      <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
-    </ListStyled>
+    <>
+      <ScrollView>
+        <ListStyled>
+          {noteList.map(note => {
+            return (
+              <NoteCard
+                key={note.machineIdx}
+                {...note}
+                onPress={() => navigation.push('NoteScreen', { goBackKey: 'NoteListScreen', ...note })}
+              />
+            );
+          })}
+          <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
+        </ListStyled>
+      </ScrollView>
+    </>
   );
 }
 

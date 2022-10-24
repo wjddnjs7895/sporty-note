@@ -39,14 +39,13 @@ const IndexStyled = styled.View`
 const BoxStyled = styled.TouchableOpacity`
   width: ${getWidthPixel(50)};
   height: ${getWidthPixel(50)};
-  border-radius: ${getWidthPixel(15)};
   align-items: center;
 `;
 
 const DayStyled = styled.View<StyleProps>`
   width: ${getWidthPixel(30)};
   height: ${getWidthPixel(30)};
-  border-radius: ${getWidthPixel(15)};
+  border-radius: ${getWidthPixel(35)};
   align-items: center;
   justify-content: center;
   ${({ backgroundColor = 'none' }) => css`

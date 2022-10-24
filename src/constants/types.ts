@@ -127,8 +127,19 @@ export interface ModalProps<T = undefined> extends ModalStyle {
   noText?: string;
 }
 
+export interface RoutineModalProps extends ModalProps {
+  routineList: number[];
+  name: string;
+  inputType: number;
+  setModalVisible?: Dispatch<SetStateAction<boolean>>;
+}
+
 export interface DeleteModalProps extends ModalProps {
   nodeIdx: number;
+}
+
+export interface RoutineDeleteModalProps extends ModalProps {
+  routineName: string;
 }
 
 export interface MemoInputModalProps extends ModalProps, NoteProps {

@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import { Modal, ScrollView } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components/native';
 import { palette } from '../../constants/palette';
-import { ModalProps } from '../../constants/types';
+import { RoutineModalProps } from '../../constants/types';
 import { userState } from '../../store/atoms/userAtom';
 import { getAllWorkoutSelector } from '../../store/selectors/machineSelector';
 import { postRoutineAPI } from '../../utils/api';
@@ -18,12 +19,14 @@ import SubHeadText from '../Text/SubHeadText';
 import SearchBarInput from '../Input/SearchBarInput';
 import { routineRefreshState } from '../../store/atoms/routineAtom';
 import AlertModal from './AlertModal';
+import { modifyRoutineAPI } from '../../utils/api/routine';
 
-function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
+function AddRoutineModal({ isVisible, setVisible, inputType, name, setModalVisible, routineList }: RoutineModalProps) {
+  const initialName = name;
   const cardList = useRecoilValue(getAllWorkoutSelector);
-  const [selectedList, setSelectedList] = useState<number[]>([]);
+  const [selectedList, setSelectedList] = useState<number[]>(routineList);
   const userData = useRecoilValue(userState);
-  const [routineName, setName] = useState<string>('');
+  const [routineName, setName] = useState<string>(name);
   const [keyword, setKeyword] = useState<string>('');
   const regex = new RegExp(keyword + '.*');
   const [refresh, setRefresh] = useRecoilState(routineRefreshState);
@@ -32,19 +35,38 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
     <Modal visible={isVisible} animationType={'slide'} transparent={false}>
       <Background>
         <AddRoutineHeaderContainer
+          title={routineName}
           goBack={() => setVisible(false)}
           setTitle={setName}
           submit={() => {
             if (routineName) {
-              postRoutineAPI({
-                accessToken: userData.accessToken,
-                selectedList: selectedList,
-                routineName: routineName,
-                setRefresh: setRefresh,
-                refresh: refresh,
-              });
-              setSelectedList([]);
-              setVisible(false);
+              if (inputType === 0) {
+                postRoutineAPI({
+                  accessToken: userData.accessToken,
+                  selectedList: selectedList,
+                  routineName: routineName,
+                  setRefresh: setRefresh,
+                  refresh: refresh,
+                });
+                setSelectedList([]);
+                setVisible(false);
+                setName('');
+              } else {
+                modifyRoutineAPI({
+                  accessToken: userData.accessToken,
+                  selectedList: selectedList,
+                  newRoutineName: routineName,
+                  setRefresh: setRefresh,
+                  refresh: refresh,
+                  routineName: initialName,
+                });
+                setSelectedList([]);
+                setVisible(false);
+                if (setModalVisible) {
+                  setModalVisible(false);
+                }
+                setName('');
+              }
             } else {
               setAlertVisible(true);
             }
@@ -56,7 +78,7 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
               return (
                 <RoutineCard
                   key={idx}
-                  imageUrl1={cardList[idx].imageUrl1}
+                  imageUrl1={cardList[idx - 1].imageUrl1}
                   onPress={() => {
                     setSelectedList(selectedList.filter(i => i !== idx));
                   }}
@@ -97,7 +119,7 @@ function AddRoutineModal({ isVisible, setVisible }: ModalProps) {
               })}
               {cardList.length % 2 !== 0 ? <Blank width={getWidthPixel(170)} height={getWidthPixel(200)} /> : null}
             </ListStyled>
-            <Blank height={getHeightPixel(80)} />
+            <Blank height={getHeightPixel(500)} />
           </ScrollView>
         </ContainerStyled>
         {alertVisible ? (
