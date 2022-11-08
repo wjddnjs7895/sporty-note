@@ -84,7 +84,7 @@ const ContainerStyled = styled.View<ModalStyle>`
       shadow-color: '#000000'; 
       shadow-offset: {width: 1, height: 1};
       shadow-opacity: 0.15;
-      shadow-radius:10;
+      shadow-radius:10px;
     `,
     android: css`
       elevation: 10;

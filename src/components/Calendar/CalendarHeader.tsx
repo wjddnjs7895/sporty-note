@@ -9,14 +9,25 @@ import { getWidthPixel, getHeightPixel } from '../../utils/responsive';
 import Reverse_Triangle_Icon from '../../assets/icons/button/reverse_triangle.svg';
 import { View } from 'react-native';
 import MonthModal from '../Modal/MonthModal';
+import BodyText from '../Text/BodyText';
 
-function CalendarHeader({ date, setDate }: { date: Date; setDate: Dispatch<SetStateAction<Date>> }) {
+function CalendarHeader({
+  date,
+  setDate,
+  short,
+  setShort,
+}: {
+  date: Date;
+  setDate: Dispatch<SetStateAction<Date>>;
+  short: boolean;
+  setShort: Dispatch<SetStateAction<boolean>>;
+}) {
   const [isVisible, setVisible] = useState<boolean>(false);
   const [location, setLocation] = useState<number[]>([0, 0]);
   const ViewRef = useRef<View>(null);
   return (
     <HeaderStyled>
-      <View
+      <RowStyled
         ref={ViewRef}
         onLayout={() => {
           ViewRef.current?.measure((x, y, width, height, pageX, pageY) => {
@@ -28,7 +39,10 @@ function CalendarHeader({ date, setDate }: { date: Date; setDate: Dispatch<SetSt
           <HeadText fontNumber={2}>{MONTH[parseInt(format(date, 'M'), 10) - 1]}</HeadText>
           <ButtonStyled />
         </MonthStyled>
-      </View>
+        <ShortStyled onPress={() => setShort(!short)}>
+          <BodyText fontNumber={5}>월별보기</BodyText>
+        </ShortStyled>
+      </RowStyled>
       {isVisible ? (
         <MonthModal location={location} isVisible={isVisible} setVisible={setVisible} setFunc={setDate} />
       ) : null}
@@ -37,6 +51,19 @@ function CalendarHeader({ date, setDate }: { date: Date; setDate: Dispatch<SetSt
 }
 
 export default CalendarHeader;
+
+const RowStyled = styled.View`
+  flex-direction: row;
+  width: 100%;
+`;
+
+const ShortStyled = styled.TouchableOpacity`
+  width: ${getWidthPixel(78)};
+  height: ${getHeightPixel(30)};
+  position: absolute;
+  right: ${getWidthPixel(-30)};
+  margin-top: ${getHeightPixel(5)};
+`;
 
 const MonthStyled = styled.TouchableOpacity`
   flex-direction: row;

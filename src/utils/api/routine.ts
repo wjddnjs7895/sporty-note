@@ -27,7 +27,7 @@ export async function modifyRoutineAPI({
   refresh: { refresh: boolean };
   newRoutineName: string;
 }) {
-  const { data } = await axios.put(
+  const { data } = await axios.post(
     `${BASE__URL}routines/modify-routines`,
     {
       machines: selectedList,

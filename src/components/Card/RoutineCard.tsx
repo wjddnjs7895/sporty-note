@@ -5,7 +5,7 @@ import { ImageStyle } from '../../constants/types';
 import { getWidthPixel, getPixelToPixel, getHeightPixel } from '../../utils/responsive';
 
 import { RESOURCE_PREFIX } from '../../constants';
-import Delete_Routine_Icon from '../../assets/icons/button/delete_routine.svg';
+import Delete_Routine_Icon from '../../assets/icons/button/delete_record.svg';
 
 function RoutineCard({ onPress, imageUrl1 }: { onPress: () => void; imageUrl1: string }) {
   return (

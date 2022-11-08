@@ -5,30 +5,35 @@ import { getHeightPixel, getHeightPixelByWidth, getWidthPixel } from '../../util
 import SubHeadText from '../Text/SubHeadText';
 
 import EditRoutineButton from './EditRoutineButton';
-import AsyncStorage from '@react-native-community/async-storage';
-import { getRoutineMachinesByNumber } from '../../utils/api/routine';
+import { getRoutineMachinesAPI } from '../../utils/api/routine';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { userState } from '../../store/atoms/userAtom';
 import { routineRefreshState } from '../../store/atoms/routineAtom';
 import ReadyModal from '../Modal/ReadyModal';
+import { storeData } from '../../utils';
 
 function RoutineButton({ routineName }: { routineName: string }) {
   const userData = useRecoilValue(userState);
-  const [routineList, setList] = useState<number[]>([]);
+  const [routineList, setList] = useState<any[]>([]);
   const [refresh, setRefresh] = useRecoilState(routineRefreshState);
   const [isVisible, setVisible] = useState(false);
   useEffect(() => {
-    getRoutineMachinesByNumber({ accessToken: userData.accessToken, routineName: routineName, setList: setList });
+    getRoutineMachinesAPI({ accessToken: userData.accessToken, routineName: routineName, setData: setList });
   }, [routineName, userData.accessToken]);
   return (
-    // <ContainerStyled
-    //   onPress={() => {
-    //     const dataObject = { day: new Date(), workoutList: routineList };
-    //     AsyncStorage.setItem('workoutData', JSON.stringify(dataObject));
-    //     setRefresh({ refresh: !refresh });
-    //   }}
-    // >
-    <ContainerStyled onPress={() => setVisible(true)}>
+    <ContainerStyled
+      onPress={() => {
+        const dataObject = { day: new Date(), workoutList: routineList };
+        let recordArr: { machineIdx: number; count: number[]; kg: number[]; complete: boolean[]; length: number }[] =
+          [];
+        routineList.forEach(routine => {
+          recordArr.push({ machineIdx: routine.machineIdx, count: [], kg: [], complete: [], length: 0 });
+        });
+        storeData('workoutData', JSON.stringify(dataObject));
+        storeData('recordData', JSON.stringify(recordArr));
+        setRefresh({ refresh: !refresh });
+      }}
+    >
       <SubHeadText fontNumber={3}>{routineName}</SubHeadText>
       <EditRoutineButton routineName={routineName} />
       {isVisible ? <ReadyModal isVisible={isVisible} setVisible={setVisible} /> : null}

@@ -45,6 +45,7 @@ function SearchCardContainer({ keyword }: { keyword: string }) {
         })}
         <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
       </ListStyled>
+      <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
     </ScrollView>
   );
 }

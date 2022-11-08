@@ -3,7 +3,7 @@ import { selectorFamily } from 'recoil';
 
 import { loginProps, userProps } from '../../constants/types';
 import { BASE__URL } from '../../constants';
-import AsyncStorage from '@react-native-community/async-storage';
+import { storeData } from '../../utils';
 
 export const getKakaoUserSelector = selectorFamily<userProps, loginProps>({
   key: 'kakao_user/get',
@@ -22,7 +22,7 @@ export const getKakaoUserSelector = selectorFamily<userProps, loginProps>({
         },
       });
 
-      AsyncStorage.setItem('userData', JSON.stringify({ accessToken: data.accessToken }));
+      storeData('userData', JSON.stringify({ accessToken: data.accessToken }));
       return data;
     },
 });
@@ -44,7 +44,7 @@ export const getGoogleUserSelector = selectorFamily<userProps, loginProps>({
         },
       });
 
-      AsyncStorage.setItem('userData', JSON.stringify({ accessToken: data.accessToken }));
+      storeData('userData', JSON.stringify({ accessToken: data.accessToken }));
       return data;
     },
 });

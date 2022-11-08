@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { Dispatch, SetStateAction } from 'react';
 import { BASE__URL } from '../../constants';
@@ -35,4 +36,16 @@ export async function isLoginAPI({
   if (data) {
     setLogin(data);
   }
+}
+
+export async function postAppleLoginAPI({ email, name, uid }: { email: string; name: string; uid: string }) {
+  const { data } = await axios.post(`${BASE__URL}auth/apple/callback`, {
+    email: email,
+    name: name,
+    uid: uid,
+  });
+  if (data) {
+    AsyncStorage.setItem('userData', JSON.stringify({ accessToken: data.accessToken }));
+  }
+  return data;
 }

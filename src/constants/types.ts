@@ -267,3 +267,11 @@ export interface dateProps {
   [key: string]: Date;
   selectedDay: Date;
 }
+
+export interface RecordProps {
+  machineIdx: number;
+  count: number[];
+  kg: number[];
+  complete: boolean[];
+  length: number;
+}

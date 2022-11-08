@@ -8,7 +8,7 @@ export const KAKAO__LOGIN__URL =
   'https://kauth.kakao.com/oauth/authorize?client_id=c885ecfe893222b57506c1f5098018f0&redirect_uri=https://api.sportynote.com/auth/code&response_type=code&response_mode=form_post';
 
 export const GOOGLE__LOGIN__URL =
-  'https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?client_id=889016095733-q0pbdimh0k14gcrq6dfoi266mchknu7c.apps.googleusercontent.com&redirect_uri=https://api.sportynote.com/auth/code&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&flowName=GeneralOAuthFlow&include_granted_scopes=true';
+  'https://accounts.google.com/o/oauth2/auth?client_id=594823549335-qc13jkdojicuel3cvcevpl09eh9770vp.apps.googleusercontent.com&redirect_uri=https://api.sportynote.com/auth/code&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile';
 
 export const INJECTED__JAVASCRIPT = 'window.ReactNativeWebView.postMessage("this is message from web");';
 

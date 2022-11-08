@@ -11,10 +11,13 @@
     "dev": "HOST=0.0.0.0 nuxst"
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.2.2",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-firebase/analytics": "^16.1.1",
-    "@react-native-firebase/app": "^16.1.1",
+    "@react-native-firebase/analytics": "^16.4.1",
+    "@react-native-firebase/app": "^16.4.1",
+    "@react-native-firebase/auth": "^16.4.1",
+    "@react-native-google-signin/google-signin": "^8.2.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",

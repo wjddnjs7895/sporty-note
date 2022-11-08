@@ -920,6 +920,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@invertase/react-native-apple-authentication@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@invertase/react-native-apple-authentication/-/react-native-apple-authentication-2.2.2.tgz#1d3b6d22ba1fab8ef8a285396acdbf0778ab071b"
+  integrity sha512-uNZcUn9WbAQP5zSOFXI1+kEUokLwZG9imUulFdt5t22CU2ozGq6zyPm+BAVVg8D5eUUXduX/dJFhbuOpJxiEhQ==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1392,19 +1397,32 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.11.tgz#2f4c6e10bee0786abff4604e39a37ded6f3980ce"
   integrity sha512-rQfMIGSR/1r/SyN87+VD8xHHzDYeHaJq6elOSCAD+0iLagXkSI2pfA0LmSXP21uw5i3em7GkkRjfJ8wpqWXZNw==
 
-"@react-native-firebase/analytics@^16.1.1":
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-16.1.1.tgz#54b929b3a0bc83531ccb8ba3114ff616f7231251"
-  integrity sha512-QBLMPGtNNGW4Y5n8AlJhHXakgG+r8LMaZbde9p66jmyMwhqdoIwfuUrH+zV3oC4ruWKbP//KU+ZCHGjPYOtW3w==
+"@react-native-firebase/analytics@^16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/analytics/-/analytics-16.4.1.tgz#773c118c7ecb0fe02a5acea41113981f3e2fd97e"
+  integrity sha512-BJJhNkl4bAW4g52uJEXhdMvSGLtAN41nXhiomXo0IuANLqj2G5Ubm0SN0RKSlH4Wvgj4KRb7wWA4baP8ou/Hdw==
 
-"@react-native-firebase/app@^16.1.1":
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-16.1.1.tgz#4907b2691fc24492e784545d58784b1acf3a3bd5"
-  integrity sha512-7bdUR+dSo6/HA0ilKOZLy1djecgyfRnFSV0tQi1qnD8xW/lBAjMif4idO5frsL5yLC0iefFYOzkVywmFmASqJg==
+"@react-native-firebase/app@^16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-16.4.1.tgz#d9c53c46814fd008f592b02b04e0f6077ed1e476"
+  integrity sha512-p8s7RIwwhWwz7rOrQry1+ujuUOrsaGJ7GdTLf5rgbcpgiVUN5DNmGvXYG9HeusXHd9INJQFn66S4JktDCIF/Ww==
   dependencies:
     "@expo/config-plugins" "^5.0.1"
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
+
+"@react-native-firebase/auth@^16.4.1":
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-16.4.1.tgz#666b343c99b057c7f6b4141d9b74d480bf065fe3"
+  integrity sha512-d87j7D9w9Ci52Ev73IY4YU/nmWqwpeZ/iuqZmrBgO6kvU2ebCY/KYnHrMDvSulmlfavmpScqiH+DjQum0lqkbQ==
+  dependencies:
+    "@expo/config-plugins" "^5.0.1"
+    plist "^3.0.5"
+
+"@react-native-google-signin/google-signin@^8.2.0":
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-8.2.0.tgz#42cd62703c341e22d2f4181bdd35f1907d90bc0d"
+  integrity sha512-O43gUt0UtVNuLcxFvPouIXObJ68eMO8z08j5n/TXnc/nckg6l54p/BsmefaRoby15gIAi96OADB0GAbwaraDFg==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -1948,9 +1966,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@xmldom/xmldom@~0.7.0":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.7.6.tgz#6f55073fa73e65776bd85826958b98c8cd1457b5"
-  integrity sha512-HHXP9hskkFQHy8QxxUXkS7946FFIhYVfGqsk0WLwllmexN9x/+R4UBLvurHEuyXRfVEObVR8APuQehykLviwSQ==
+  version "0.7.8"
+  resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.7.8.tgz#a8d0a0067c9554c187b0d04e86ad1845053c0e06"
+  integrity sha512-PrJx38EfpitFhwmILRl37jAdBlsww6AZ6rRVK4QS7T7RHLhX7mSs647sTmgr9GIxe3qjXdesmomEgbgaokrVFg==
 
 abab@^2.0.3, abab@^2.0.5:
   version "2.0.6"

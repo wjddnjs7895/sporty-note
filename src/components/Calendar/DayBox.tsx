@@ -45,7 +45,7 @@ const BoxStyled = styled.TouchableOpacity`
 const DayStyled = styled.View<StyleProps>`
   width: ${getWidthPixel(30)};
   height: ${getWidthPixel(30)};
-  border-radius: ${getWidthPixel(35)};
+  border-radius: ${getWidthPixel(30)};
   align-items: center;
   justify-content: center;
   ${({ backgroundColor = 'none' }) => css`
