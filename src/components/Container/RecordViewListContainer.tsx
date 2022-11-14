@@ -2,39 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components/native';
-import { recordRefreshState } from '../../store/atoms/routineAtom';
-import { getAsyncData, getIdxFromRecord } from '../../utils';
+import { userState } from '../../store/atoms/userAtom';
+import { getIdxFromRecord } from '../../utils';
+import { getDayRecordAPI } from '../../utils/api/record';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
 import RecordContainer from './RecordContainer';
 
-export default function RecordListContainer({ workoutList, short }: { workoutList: any[]; short: boolean }) {
-  const recordRefresh = useRecoilValue(recordRefreshState);
+export default function RecordViewListContainer({ short, day }: { short: boolean; day: string }) {
   const [recordList, setList] = useState<string>(
     JSON.stringify([{ machineIdx: -1, count: [], kg: [], complete: [], length: 0 }])
   );
+  const userData = useRecoilValue(userState);
   useEffect(() => {
-    async function getData() {
-      const data = await getAsyncData('recordData');
-      if (data) {
-        setList(JSON.stringify(data));
-      }
-    }
-    getData();
-  }, [recordRefresh.refresh]);
+    getDayRecordAPI({ accessToken: userData.accessToken, recordDay: day, setData: setList });
+  }, [day, userData.accessToken]);
   return (
     <ContainerStyled height={short ? getHeightPixel(640) : getHeightPixel(500)}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {workoutList.map((workout, index) => {
+        {JSON.parse(recordList).map((workout: { machineIdx: number }, index: number) => {
           return (
             <View key={index}>
               <RecordContainer
-                type={0}
+                type={1}
                 setList={setList}
                 recordList={recordList}
-                idx={getIdxFromRecord({ machineIdx: workout.machineIdx, list: JSON.parse(recordList) })}
-                imageUrl={workout.url}
-                name={workout.machineName}
+                idx={getIdxFromRecord({ machineIdx: workout.machineIdx, list: [...recordList] })}
                 machineIdx={workout.machineIdx}
               />
               <Blank height={getHeightPixel(15)} />

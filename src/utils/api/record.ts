@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Dispatch, SetStateAction } from 'react';
+import { getParseRecordList } from '..';
 import { BASE__URL } from '../../constants';
 
 export async function postRecordAPI({
@@ -62,4 +64,24 @@ export async function deleteRecordAPI({
     },
   });
   return data;
+}
+
+export async function getDayRecordAPI({
+  accessToken,
+  recordDay,
+  setData,
+}: {
+  accessToken: string;
+  recordDay: string;
+  setData: Dispatch<SetStateAction<string>>;
+}) {
+  const { data } = await axios.get(`${BASE__URL}records/day/${recordDay}`, {
+    params: {
+      recordDay: recordDay,
+    },
+    headers: {
+      Authorization: accessToken,
+    },
+  });
+  setData(JSON.stringify(getParseRecordList(data)));
 }

@@ -7,9 +7,11 @@ import Blank from '../components/Blank';
 import Calendar from '../components/Calendar';
 import MyRoutineHeaderContainer from '../components/Container/MyRoutineHeaderContainer';
 import RecordListContainer from '../components/Container/RecordListContainer';
+import RecordViewListContainer from '../components/Container/RecordViewListContainer';
+import RoutineHeaderContainer from '../components/Container/RoutineHeaderContainer';
 import RoutineListContainer from '../components/Container/RoutineListContainer';
-import { dateState, routineRefreshState } from '../store/atoms/routineAtom';
-import { getAsyncData, storeData } from '../utils';
+import { dateState, recordRefreshState, routineRefreshState } from '../store/atoms/routineAtom';
+import { getAsyncData, getDateFormat } from '../utils';
 import { getHeightPixel } from '../utils/responsive';
 
 const CalendarScreen = () => {
@@ -17,7 +19,8 @@ const CalendarScreen = () => {
   const day = useRecoilValue(dateState);
   const today = new Date();
   const [routineData, setData] = useState<any>();
-  const refresh = useRecoilValue(routineRefreshState);
+  const routineRefresh = useRecoilValue(routineRefreshState);
+  const recordRefresh = useRecoilValue(recordRefreshState);
   useEffect(() => {
     async function getData() {
       const data = await getAsyncData('workoutData');
@@ -26,13 +29,16 @@ const CalendarScreen = () => {
       }
     }
     getData();
-    storeData('workoutData', JSON.stringify({ day: new Date(), workoutList: [] }));
-  }, [refresh]);
+  }, [routineRefresh, recordRefresh]);
   return (
     <FlexStyled>
       <KeyboardAvoidingView behavior={Platform.OS === 'android' ? 'position' : 'height'}>
         <ScreenStyled>
-          <MyRoutineHeaderContainer />
+          {routineData && isSameDay(today, new Date(routineData.day)) && routineData.workoutList.length !== 0 ? (
+            <RoutineHeaderContainer routineName={routineData.routineName} />
+          ) : (
+            <MyRoutineHeaderContainer />
+          )}
           <Calendar short={short} setShort={setShort} />
           {isSameDay(today, day.selectedDay) ? (
             routineData && isSameDay(today, new Date(routineData.day)) && routineData.workoutList.length !== 0 ? (
@@ -43,7 +49,9 @@ const CalendarScreen = () => {
                 <RoutineListContainer />
               </>
             )
-          ) : null}
+          ) : (
+            <RecordViewListContainer day={getDateFormat(day.selectedDay)} short={short} />
+          )}
         </ScreenStyled>
       </KeyboardAvoidingView>
     </FlexStyled>

@@ -182,7 +182,7 @@ export function getIdxFromRecord({ machineIdx, list }: { machineIdx: number; lis
       return i;
     }
   }
-  return -1;
+  return 0;
 }
 
 export function getAddRecordSet({
@@ -198,12 +198,11 @@ export function getAddRecordSet({
     if (record.machineIdx !== machineIdx) {
       result.push(record);
     } else {
-      console.log('inside function before record: ', record);
       result.push({
         machineIdx: machineIdx,
-        count: record.count.concat(0),
-        kg: record.kg.concat(0),
-        complete: record.complete.concat(false),
+        count: [...record.count, 0],
+        kg: [...record.kg, 0],
+        complete: [...record.complete, false],
         length: record.length + 1,
       });
     }
@@ -219,9 +218,9 @@ export function getDeleteRecordSet({ list, machineIdx }: { list: any[]; machineI
     } else {
       result.push({
         machineIdx: machineIdx,
-        count: record.count.slice(0, record.length - 1),
-        kg: record.kg.slice(0, record.length - 1),
-        complete: record.complete.slice(0, record.length - 1),
+        count: record.count.slice(0, -1),
+        kg: record.kg.slice(0, -1),
+        complete: record.complete.slice(0, -1),
         length: record.length - 1,
       });
     }
@@ -244,16 +243,16 @@ export function getModifyRecordSet({
   complete: boolean;
   set: number;
 }) {
-  let result: { machineIdx: number; count: any; kg: any; complete: any; length: any }[] = [];
+  let result: { machineIdx: number; count: number[]; kg: number[]; complete: boolean[]; length: any }[] = [];
   list.forEach(record => {
     if (record.machineIdx !== machineIdx) {
       result.push(record);
     } else {
       result.push({
         machineIdx: machineIdx,
-        count: record.count.splice(set, 1, count),
-        kg: record.kg.splice(set, 1, kg),
-        complete: record.complete.splice(set, 1, complete),
+        count: getModifyArr(record.count, set - 1, count),
+        kg: getModifyArr(record.count, set - 1, kg),
+        complete: getModifyArr(record.complete, set - 1, complete),
         length: record.length,
       });
     }
@@ -276,3 +275,37 @@ export const removeData = async (key: string) => {
     console.error(e.message);
   }
 };
+
+export function getModifyArr(list: any[], idx: number, value: any) {
+  let resultArr: any[] = [...list];
+  resultArr.splice(idx, 1, value);
+  return resultArr;
+}
+
+export function getParseRecordList(recordList: any[]) {
+  let prevIdx = 0;
+  let resultArr: { machineIdx: number; count: number[]; kg: number[]; complete: boolean[]; length: any }[] = [];
+  recordList.forEach(record => {
+    if (prevIdx !== record.machineIdx) {
+      resultArr.push({ machineIdx: record.machineIdx, count: [], kg: [], complete: [], length: 0 });
+      resultArr[resultArr.length - 1].count.push(record.count);
+      resultArr[resultArr.length - 1].kg.push(record.kg);
+      resultArr[resultArr.length - 1].complete.push(record.complete);
+      resultArr[resultArr.length - 1].length += 1;
+      prevIdx = record.machineIdx;
+    } else {
+      resultArr[resultArr.length - 1].count.push(record.count);
+      resultArr[resultArr.length - 1].kg.push(record.kg);
+      resultArr[resultArr.length - 1].complete.push(record.complete);
+      resultArr[resultArr.length - 1].length += 1;
+    }
+  });
+  return resultArr;
+}
+
+export function getDateFormat(date: Date) {
+  let month = date.getMonth() + 1 >= 10 ? date.getMonth() + 1 : '0' + date.getMonth() + 1;
+  let day = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
+
+  return date.getFullYear() + '-' + month + '-' + day;
+}

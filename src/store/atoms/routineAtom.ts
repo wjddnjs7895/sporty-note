@@ -19,3 +19,10 @@ export const routineRefreshState = atom<{ refresh: boolean }>({
     refresh: false,
   },
 });
+
+export const recordRefreshState = atom<{ refresh: boolean }>({
+  key: 'recordRefreshState',
+  default: {
+    refresh: false,
+  },
+});

@@ -23,11 +23,17 @@ function RoutineButton({ routineName }: { routineName: string }) {
   return (
     <ContainerStyled
       onPress={() => {
-        const dataObject = { day: new Date(), workoutList: routineList };
+        const dataObject = { day: new Date(), routineName: routineName, workoutList: routineList };
         let recordArr: { machineIdx: number; count: number[]; kg: number[]; complete: boolean[]; length: number }[] =
           [];
         routineList.forEach(routine => {
-          recordArr.push({ machineIdx: routine.machineIdx, count: [], kg: [], complete: [], length: 0 });
+          recordArr.push({
+            machineIdx: routine.machineIdx,
+            count: [],
+            kg: [],
+            complete: [],
+            length: 0,
+          });
         });
         storeData('workoutData', JSON.stringify(dataObject));
         storeData('recordData', JSON.stringify(recordArr));
