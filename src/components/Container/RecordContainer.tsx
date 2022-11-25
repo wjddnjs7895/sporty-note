@@ -14,6 +14,8 @@ import RecordView from '../Record/RecordView';
 import { getMachineDataAPI } from '../../utils/api/machine';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../store/atoms/userAtom';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProps } from '../../constants/navigator';
 
 export default function RecordContainer({
   imageUrl,
@@ -23,6 +25,8 @@ export default function RecordContainer({
   recordList,
   setList,
   type,
+  setVisible,
+  setIdx,
 }: {
   imageUrl?: string;
   name?: string;
@@ -31,9 +35,12 @@ export default function RecordContainer({
   recordList: string;
   setList: Dispatch<SetStateAction<string>>;
   type: number;
+  setVisible?: Dispatch<SetStateAction<boolean>>;
+  setIdx?: Dispatch<SetStateAction<number>>;
 }) {
   const userData = useRecoilValue(userState);
   const [workoutData, setData] = useState<{ name: string; imageUrl: string }>({ name: '', imageUrl: '' });
+  const navigation = useNavigation<NavigationProps['navigation']>();
   useEffect(() => {
     if (type === 1) {
       getMachineDataAPI({ machineIdx: machineIdx, accessToken: userData.accessToken, setData: setData });
@@ -41,10 +48,26 @@ export default function RecordContainer({
   }, [machineIdx, type, userData.accessToken]);
   return (
     <ContainerStyled>
-      <RecordHeaderContainer
-        imageUrl={type === 0 ? imageUrl || '' : workoutData.imageUrl}
-        name={type === 0 ? name || '' : workoutData.name}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('CalendarNavigator', {
+            screen: 'RecordScreen',
+            params: {
+              machineIdx: machineIdx,
+              machineName: name || '',
+              url: imageUrl || '',
+            },
+          });
+        }}
+      >
+        <RecordHeaderContainer
+          imageUrl={type === 0 ? imageUrl || '' : workoutData.imageUrl}
+          name={type === 0 ? name || '' : workoutData.name}
+          setVisible={setVisible}
+          setIdx={setIdx}
+          machineIdx={machineIdx}
+        />
+      </TouchableOpacity>
       <RecordHeaderColumnContainer />
       {JSON.parse(recordList)[idx].kg.map((weight: number, index: number) => {
         return (

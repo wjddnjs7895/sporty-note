@@ -185,7 +185,19 @@ export interface NoteNavigatorProps extends NoteProps {
   goBackKey: keyof BottomTabNavigationParam;
 }
 
+export interface CalendarNavigatorProps {
+  machineIdx: number;
+  machineName: string;
+  url: string;
+}
+
+export interface RecordSummaryNavigatorProps {
+  day: string;
+  routineName: string;
+}
+
 export interface NoteData {
+  isRecord?: boolean;
   noteIdx: number;
   machineDto: NoteProps;
   nodeDtos: {

@@ -7,11 +7,11 @@ import { getWidthPixel } from '../../utils/responsive';
 import { ImageStyle, NoteData } from '../../constants/types';
 import { RESOURCE_PREFIX } from '../../constants';
 
-const Note = ({ isGeneral, ...note }: NoteData) => {
+const Note = ({ isGeneral, isRecord, ...note }: NoteData) => {
   return (
     <ContainerStyled>
       <ImageStyled source={{ uri: RESOURCE_PREFIX + note.machineDto.imageUrl1 }} />
-      <MemoList isGeneral={isGeneral || false} memoList={note.nodeDtos} />
+      <MemoList isGeneral={isGeneral || false} memoList={note.nodeDtos} isRecord={isRecord} />
     </ContainerStyled>
   );
 };

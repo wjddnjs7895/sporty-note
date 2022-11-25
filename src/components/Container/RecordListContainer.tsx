@@ -6,6 +6,7 @@ import { recordRefreshState } from '../../store/atoms/routineAtom';
 import { getAsyncData, getIdxFromRecord } from '../../utils';
 import { getHeightPixel, getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
+import PastRecordModal from '../Modal/PastRecordModal';
 import RecordContainer from './RecordContainer';
 
 export default function RecordListContainer({ workoutList, short }: { workoutList: any[]; short: boolean }) {
@@ -13,6 +14,8 @@ export default function RecordListContainer({ workoutList, short }: { workoutLis
   const [recordList, setList] = useState<string>(
     JSON.stringify([{ machineIdx: -1, count: [], kg: [], complete: [], length: 0 }])
   );
+  const [isVisible, setVisible] = useState(false);
+  const [machineIdx, setIdx] = useState(-1);
   useEffect(() => {
     async function getData() {
       const data = await getAsyncData('recordData');
@@ -29,6 +32,7 @@ export default function RecordListContainer({ workoutList, short }: { workoutLis
           return (
             <View key={index}>
               <RecordContainer
+                setIdx={setIdx}
                 type={0}
                 setList={setList}
                 recordList={recordList}
@@ -36,6 +40,7 @@ export default function RecordListContainer({ workoutList, short }: { workoutLis
                 imageUrl={workout.url}
                 name={workout.machineName}
                 machineIdx={workout.machineIdx}
+                setVisible={setVisible}
               />
               <Blank height={getHeightPixel(15)} />
             </View>
@@ -43,6 +48,7 @@ export default function RecordListContainer({ workoutList, short }: { workoutLis
         })}
         <Blank height={getHeightPixel(200)} />
       </ScrollView>
+      <PastRecordModal isVisible={isVisible} setVisible={setVisible} machineIdx={machineIdx} />
     </ContainerStyled>
   );
 }

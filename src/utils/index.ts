@@ -309,3 +309,16 @@ export function getDateFormat(date: Date) {
 
   return date.getFullYear() + '-' + month + '-' + day;
 }
+
+export function getRecordSummary(list: string) {
+  const recordList = JSON.parse(list);
+  let weight = 0;
+  let count = 0;
+  recordList.forEach((record: { machineIdx: string; count: number[]; kg: number[] }) => {
+    record.count.forEach((num: number, idx: number) => {
+      weight += num * record.kg[idx];
+      count += 1;
+    });
+  });
+  return { weight: weight, count: count };
+}

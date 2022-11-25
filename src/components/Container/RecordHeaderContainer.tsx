@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components/native';
 import { RESOURCE_PREFIX } from '../../constants';
 import { getWidthPixel } from '../../utils/responsive';
@@ -8,13 +8,30 @@ import SubHeadText from '../Text/SubHeadText';
 import RightArrowIcon from '../../assets/icons/button/right_arrow.svg';
 import Blank from '../Blank';
 
-export default function RecordHeaderContainer({ imageUrl, name }: { imageUrl: string; name: string }) {
+export default function RecordHeaderContainer({
+  imageUrl,
+  name,
+  setVisible,
+  setIdx,
+  machineIdx,
+}: {
+  imageUrl: string;
+  name: string;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  setIdx: Dispatch<SetStateAction<number>>;
+  machineIdx: number;
+}) {
   return (
     <ContainerStyled>
       <ImageStyled source={{ uri: RESOURCE_PREFIX + imageUrl }} />
       <Blank width={getWidthPixel(10)} />
       <SubHeadText fontNumber={2}>{name}</SubHeadText>
-      <ButtonStyled>
+      <ButtonStyled
+        onPress={() => {
+          setVisible(true);
+          setIdx(machineIdx);
+        }}
+      >
         <BodyText fontNumber={5}>이전기록</BodyText>
       </ButtonStyled>
       <ArrowStyled />

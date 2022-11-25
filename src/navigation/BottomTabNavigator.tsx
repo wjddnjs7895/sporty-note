@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 import RNExitApp from 'react-native-exit-app';
 
 import { getPixelToNumber, getWidthPixel } from '../utils/responsive';
-import CalendarScreen from '../screens/CalendarScreen';
 import UserScreen from '../screens/UserScreen';
 import MainScreen from '../screens/MainScreen';
 import NoteNavigator from './NoteNavigator';
@@ -26,6 +25,7 @@ import { useRecoilValue } from 'recoil';
 import { appState } from '../store/atoms/appAtom';
 import { Alert, BackHandler } from 'react-native';
 import SearchNavigator from './SearchNavigator';
+import CalendarNavigator from './CalendarNavigator';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -69,8 +69,8 @@ export default function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen
-        name="CalendarScreen"
-        component={CalendarScreen}
+        name="CalendarNavigator"
+        component={CalendarNavigator}
         options={{
           title: NAVIGATION__TEXT[0][appInfo.language],
           headerShown: false,

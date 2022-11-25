@@ -6,12 +6,22 @@ import { MemoData } from '../../constants/types';
 
 import { getMemoTitle } from '../../utils';
 import { getHeightPixelByWidth, getHeightPixel, getPixelToPixel, getWidthPixel } from '../../utils/responsive';
+import HeadText from '../Text/HeadText';
 import Memo from './Memo';
 
-function MemoList({ isGeneral, memoList }: { isGeneral: boolean; memoList: { [key: BodyKeyTypes]: MemoData[] } }) {
+function MemoList({
+  isGeneral,
+  memoList,
+  isRecord,
+}: {
+  isRecord?: boolean;
+  isGeneral: boolean;
+  memoList: { [key: BodyKeyTypes]: MemoData[] };
+}) {
   const MemoBodyList = getMemoTitle(memoList);
   return (
     <ContainerStyled>
+      {isRecord ? <TextStyled fontNumber={2}>나만의 노트</TextStyled> : null}
       {MemoBodyList.map((memoTitle, index) => (
         <View key={memoTitle.body}>
           <Memo memo={memoList[memoTitle.index]} isGeneral={isGeneral} />
@@ -25,6 +35,11 @@ function MemoList({ isGeneral, memoList }: { isGeneral: boolean; memoList: { [ke
     </ContainerStyled>
   );
 }
+
+const TextStyled = styled(HeadText)`
+  margin-left: ${getWidthPixel(24)};
+  margin-bottom: ${getHeightPixel(20)};
+`;
 
 const DividerStyled = styled.View`
   border-bottom-color: #ebebeb;

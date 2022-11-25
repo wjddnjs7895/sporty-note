@@ -13,6 +13,8 @@ export default function RecordViewListContainer({ short, day }: { short: boolean
   const [recordList, setList] = useState<string>(
     JSON.stringify([{ machineIdx: -1, count: [], kg: [], complete: [], length: 0 }])
   );
+  const [isVisible, setVisible] = useState(false);
+  const [machineIdx, setIdx] = useState(-1);
   const userData = useRecoilValue(userState);
   useEffect(() => {
     getDayRecordAPI({ accessToken: userData.accessToken, recordDay: day, setData: setList });
@@ -24,6 +26,8 @@ export default function RecordViewListContainer({ short, day }: { short: boolean
           return (
             <View key={index}>
               <RecordContainer
+                setIdx={setIdx}
+                setVisible={setVisible}
                 type={1}
                 setList={setList}
                 recordList={recordList}

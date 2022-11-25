@@ -23,7 +23,15 @@ function MainButtonContainer({ navigation }: NavigationProps) {
   return (
     <ContainerStyled>
       <ReadyModal isVisible={visible} setVisible={setVisible} />
-      <SearchBarButton onPress={() => navigation.navigate('SearchScreen')}>운동 기구를 검색해보세요.</SearchBarButton>
+      <SearchBarButton
+        onPress={() =>
+          navigation.navigate('SearchNavigator', {
+            screen: 'SearchScreen',
+          })
+        }
+      >
+        운동 기구를 검색해보세요.
+      </SearchBarButton>
       <Blank height="25px" />
       <InnerContainerStyled>
         <Button
@@ -78,7 +86,11 @@ function MainButtonContainer({ navigation }: NavigationProps) {
           width={getWidthPixel(211)}
           height={MAIN_BUTTON_HEIGHT}
           buttonColor="white"
-          onPress={() => setVisible(true)}
+          onPress={() =>
+            navigation.navigate('CalendarNavigator', {
+              screen: 'CalendarScreen',
+            })
+          }
         >
           <TextContainerStyled>
             <SubHeadText fontNumber={2}>마이 루틴</SubHeadText>

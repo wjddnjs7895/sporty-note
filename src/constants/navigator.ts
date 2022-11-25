@@ -1,7 +1,6 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, NavigatorScreenParams } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { NoteNavigatorProps } from './types';
+import { CalendarNavigatorProps, NoteNavigatorProps, RecordSummaryNavigatorProps } from './types';
 
 export type BottomTabNavigationParam = {
   CalendarScreen: undefined;
@@ -16,10 +15,13 @@ export type BottomTabNavigationParam = {
   SearchNavigator: NavigatorScreenParams<SearchNavigationParam>;
   NoteListScreen: undefined;
   NoteScreen: NoteNavigatorProps;
+  CalendarNavigator: NavigatorScreenParams<CalendarNavigationParam>;
+  RecordScreen: CalendarNavigatorProps;
+  RecordSummaryScreen: RecordSummaryNavigatorProps;
 };
 
 export type NoteNavigationParam = {
-  NoteListScreen: undefined;
+  NoteListScreen: NavigationProps;
   NoteScreen: NoteNavigatorProps;
 };
 
@@ -28,19 +30,31 @@ export type SearchNavigationParam = {
   NoteScreen: NoteNavigatorProps;
 };
 
+export type CalendarNavigationParam = {
+  CalendarScreen: undefined;
+  RecordScreen: CalendarNavigatorProps;
+  RecordSummaryScreen: RecordSummaryNavigatorProps;
+};
+
 export type NavigationProps = {
   navigation: CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
     CompositeNavigationProp<
       BottomTabNavigationProp<BottomTabNavigationParam, 'SearchNavigator'>,
-      NativeStackNavigationProp<NoteNavigationParam>
+      CompositeNavigationProp<
+        BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
+        BottomTabNavigationProp<BottomTabNavigationParam, 'CalendarNavigator'>
+      >
     >
   >;
   route?: CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
     CompositeNavigationProp<
       BottomTabNavigationProp<BottomTabNavigationParam, 'SearchNavigator'>,
-      NativeStackNavigationProp<NoteNavigationParam>
+      CompositeNavigationProp<
+        BottomTabNavigationProp<BottomTabNavigationParam, 'NoteNavigator'>,
+        BottomTabNavigationProp<BottomTabNavigationParam, 'CalendarNavigator'>
+      >
     >
   >;
 };

@@ -9,6 +9,7 @@ import { getNoteListSelector } from '../../store/selectors/noteSelector';
 import { getNoteListAPI } from '../../utils/api/note';
 import { getWidthPixel } from '../../utils/responsive';
 import Blank from '../Blank';
+import AddButtonCard from '../Card/AddButtonCard';
 
 import NoteCard from '../Card/NoteCard';
 
@@ -32,6 +33,13 @@ function NoteCardContainer({ navigation }: NavigationProps) {
               />
             );
           })}
+          <AddButtonCard
+            onPress={() =>
+              navigation.navigate('SearchNavigator', {
+                screen: 'SearchScreen',
+              })
+            }
+          />
           <Blank width={getWidthPixel(170)} height={getWidthPixel(170)} />
         </ListStyled>
       </ScrollView>

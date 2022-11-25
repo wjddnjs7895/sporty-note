@@ -38,7 +38,7 @@ export default function ImageCarousel({
         keyExtractor={(item: any) => `page__${item.color}`}
         onScroll={onScroll}
         pagingEnabled={true}
-        renderItem={renderItem}
+        renderItem={renderItem()}
         snapToInterval={pageWidth + gap}
         snapToAlignment="start"
         showsHorizontalScrollIndicator={false}

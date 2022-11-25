@@ -85,3 +85,23 @@ export async function getDayRecordAPI({
   });
   setData(JSON.stringify(getParseRecordList(data)));
 }
+
+export async function getPastRecordAPI({
+  accessToken,
+  machineIdx,
+  setData,
+}: {
+  accessToken: string;
+  machineIdx: number;
+  setData: Dispatch<SetStateAction<string>>;
+}) {
+  const { data } = await axios.get(`${BASE__URL}records/previous/${machineIdx}`, {
+    params: {
+      machineIdx: machineIdx,
+    },
+    headers: {
+      Authorization: accessToken,
+    },
+  });
+  setData(JSON.stringify(getParseRecordList(data[0])));
+}
