@@ -35,8 +35,8 @@ export default function RecordContainer({
   recordList: string;
   setList: Dispatch<SetStateAction<string>>;
   type: number;
-  setVisible?: Dispatch<SetStateAction<boolean>>;
-  setIdx?: Dispatch<SetStateAction<number>>;
+  setVisible: Dispatch<SetStateAction<boolean>>;
+  setIdx: Dispatch<SetStateAction<number>>;
 }) {
   const userData = useRecoilValue(userState);
   const [workoutData, setData] = useState<{ name: string; imageUrl: string }>({ name: '', imageUrl: '' });

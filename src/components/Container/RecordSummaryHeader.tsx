@@ -13,10 +13,10 @@ export default function RecordSummaryHeader({ text }: { text: string }) {
   return (
     <ContainerStyled>
       <SubHeadText fontNumber={5}>
-        {day.getMonth()}월 {day.getDay()}일
+        {day.getMonth() + 1}월 {day.getDate()}일
       </SubHeadText>
       <InnerContainerStyled>
-        <TitleText fontNumber={1}>132일째</TitleText>
+        <TitleText fontNumber={1}>성장중</TitleText>
         <IconStyled />
         <Blank width={getWidthPixel(20)} />
         <TextStyled fontNumber={4} fontColor={'#767676'}>

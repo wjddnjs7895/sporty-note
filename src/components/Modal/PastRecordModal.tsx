@@ -11,8 +11,8 @@ import { userState } from '../../store/atoms/userAtom';
 
 import ExitIcon from '../../assets/icons/button/exit.svg';
 import HeadText from '../Text/HeadText';
-import SummaryContainer from '../Container/SummaryContainer';
-import { getRecordSummary } from '../../utils';
+import { getPastRecordSummary } from '../../utils';
+import PastSummaryContainer from '../Container/PastSummaryContainer';
 
 export default function PastRecordModal({
   isVisible,
@@ -49,7 +49,10 @@ export default function PastRecordModal({
             <IcontStyled />
           </InnerButtonStyled>
           <Blank height={getHeightPixel(50)} />
-          <SummaryContainer set={getRecordSummary(recordData).count} kg={getRecordSummary(recordData).weight} />
+          <PastSummaryContainer
+            maxkg={getPastRecordSummary(recordData).maxkg}
+            kg={getPastRecordSummary(recordData).kg}
+          />
         </ContainerStyled>
       </ModalStyled>
     </>

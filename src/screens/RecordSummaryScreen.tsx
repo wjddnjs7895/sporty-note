@@ -30,7 +30,7 @@ export default function RecordSummaryScreen({
         <RecordSummaryHeaderContainer routineName={route.params.routineName} />
         <ContainerStyled>
           <Blank height={getHeightPixel(20)} />
-          <RecordSummaryHeader text={'황영하님의 건강해지는 몸만큼 건강한 마음도 함께 챙기세요!'} />
+          <RecordSummaryHeader text={'건강해지는 몸만큼 건강한 마음도 함께 챙기세요!'} />
           <SummaryContainer set={getRecordSummary(recordList).count} kg={getRecordSummary(recordList).weight} />
           <Blank height={getHeightPixel(30)} />
           <DividerStyled />

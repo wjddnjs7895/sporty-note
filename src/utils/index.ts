@@ -322,3 +322,16 @@ export function getRecordSummary(list: string) {
   });
   return { weight: weight, count: count };
 }
+
+export function getPastRecordSummary(list: string) {
+  const recordList = JSON.parse(list);
+  let maxkg = 0;
+  let kg = 0;
+  recordList.forEach((record: { machineIdx: string; count: number[]; kg: number[] }) => {
+    record.kg.forEach((num: number) => {
+      maxkg = Math.max(maxkg, num);
+      kg = num;
+    });
+  });
+  return { maxkg: maxkg, kg: kg };
+}
